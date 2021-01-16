@@ -10,7 +10,7 @@
 
 #include <lem-in.h>
 
-void 				error(int errno)
+void 				error(int errno, t_map *map)
 {
 	if (errno == ARG_NUM_ERR)
 	{
@@ -21,5 +21,10 @@ void 				error(int errno)
 		printf(OPEN_FILE);
 	else if (errno == MALLOC_FAIL_ERR)
 		printf(MALLOC_FAIL);
+	else if (errno == FILE_READ_ERR)
+		printf(FILE_READ);
+	else if (errno == ANT_NUM_ERR)
+		printf(ANT_NUM);
+	clean_up(map);
 	exit(1);
 }

@@ -17,18 +17,30 @@
 
 // room's name will never start with # or L
 
-//TODO read and parse the map
+//TODO read and parse rooms and links into the map
 
 #include <lem-in.h>
+
+void 				process_line(t_map *map)
+{
+	map = NULL;
+}
 
 void 				read_map(int fd, t_map *map)
 {
 	char 			*line;
-	map->num_ants = 1; // for test only
+
+	if (get_next_line(fd, &line) != 1)
+		error(FILE_READ_ERR, map);
+	if (!isdigit(line[0]))
+		error(ANT_NUM_ERR, map);
+	map->num_ants = ft_atoi(line);
 
 	while (get_next_line(fd, &line) == 1)
 	{
-		printf("%s\n", line);
+		//printf("%s\n", line);
+
+		process_line(map);
 		free(line);
 	}
 	free(line);
