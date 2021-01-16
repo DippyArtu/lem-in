@@ -11,7 +11,11 @@
 NAME = lem-in
 
 SRC_DIR = ./srcs/
-SRC = main.c
+SRC = 	main.c \
+		parse_map.c \
+		init.c \
+		clean_up.c \
+		errors.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
@@ -21,7 +25,9 @@ OBJ = $(SRC:.c=.o)
 
 INCS = $(addprefix $(INC_DIR), $(INC))
 INC_DIR = ./includes/
-INC = 	lem-in.h
+INC = 	lem-in.h \
+		map_structs.h \
+		errors.h
 
 LIB_OBJS = $(addprefix $(LIB_OBJ_DIR), $(LIB_OBJ))
 LIB_OBJ = *.o

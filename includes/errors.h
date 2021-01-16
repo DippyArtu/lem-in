@@ -8,28 +8,17 @@
 /*                                     */
 /* *********************************** */
 
-#include <lem-in.h>
+#ifndef LEM_IN_ERRORS_H
+# define LEM_IN_ERRORS_H
 
-int					main(int argc, char **argv)
-{
-	t_map 			*map;
-	int 			fd;
+# define ARG_NUM_ERR 1
+# define OPEN_FILE_ERR 2
+# define MALLOC_FAIL_ERR 3
 
-	fd = 0;
-	map = NULL;
+# define USAGE "Usage: ./lem_in *map_file*"
+# define ARG_NUM "Invalid number of arguments"
+# define MALLOC_FAIL "Could not allocate memory"
 
-	if (argc != 2)
-		error(ARG_NUM_ERR);
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		error(OPEN_FILE_ERR);
+# define OPEN_FILE "Could not open the file"
 
-	//get map
-	map = get_map(fd);
-	close(fd);
-
-	printf("\n\n%i\n", map->num_ants); // just a test
-
-	clean_up(map);
-
-	return 0;
-}
+#endif

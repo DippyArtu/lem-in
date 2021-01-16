@@ -10,26 +10,16 @@
 
 #include <lem-in.h>
 
-int					main(int argc, char **argv)
+void 				error(int errno)
 {
-	t_map 			*map;
-	int 			fd;
-
-	fd = 0;
-	map = NULL;
-
-	if (argc != 2)
-		error(ARG_NUM_ERR);
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		error(OPEN_FILE_ERR);
-
-	//get map
-	map = get_map(fd);
-	close(fd);
-
-	printf("\n\n%i\n", map->num_ants); // just a test
-
-	clean_up(map);
-
-	return 0;
+	if (errno == ARG_NUM_ERR)
+	{
+		printf(ARG_NUM);
+		printf(USAGE);
+	}
+	else if (errno == OPEN_FILE_ERR)
+		printf(OPEN_FILE);
+	else if (errno == MALLOC_FAIL_ERR)
+		printf(MALLOC_FAIL);
+	exit(1);
 }

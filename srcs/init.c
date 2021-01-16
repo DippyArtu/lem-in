@@ -10,26 +10,15 @@
 
 #include <lem-in.h>
 
-int					main(int argc, char **argv)
+t_map 				*init_map(void)
 {
 	t_map 			*map;
-	int 			fd;
 
-	fd = 0;
-	map = NULL;
-
-	if (argc != 2)
-		error(ARG_NUM_ERR);
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		error(OPEN_FILE_ERR);
-
-	//get map
-	map = get_map(fd);
-	close(fd);
-
-	printf("\n\n%i\n", map->num_ants); // just a test
-
-	clean_up(map);
-
-	return 0;
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
+		error(MALLOC_FAIL_ERR);
+	map->num_steps = 0;
+	map->num_ants = 0;
+	map->start = NULL;
+	map->end = NULL;
+	return map;
 }

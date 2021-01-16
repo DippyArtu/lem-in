@@ -79,5 +79,11 @@ add_executable(lem_in
         libft/srcs/ft_wordcounter.c
         libft/srcs/get_next_line.c
         libft/Makefile
+
+        includes/lem-in.h
+        includes/map_structs.h
+        includes/errors.h
         srcs/main.c
-        includes/lem-in.h)
+        srcs/parse_map.c
+        srcs/init.c
+        srcs/clean_up.c srcs/errors.c)
