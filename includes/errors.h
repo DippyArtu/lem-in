@@ -17,15 +17,19 @@
 # define FILE_READ_ERR 4
 # define ANT_NUM_ERR 5
 # define INVALID_LINE_ERR 6
+# define INVALID_ROOM_NAME_ERR 7
+# define INVALID_COORD_ERR 8
 
-# define USAGE "Usage: ./lem_in *map_file*"
-# define ARG_NUM "Invalid number of arguments"
-# define MALLOC_FAIL "Could not allocate memory"
+# define USAGE "Usage: ./lem_in *map_file*\n"
+# define ARG_NUM "Invalid number of arguments\n"
+# define MALLOC_FAIL "Could not allocate memory\n"
 
-# define OPEN_FILE "Could not open the file"
-# define FILE_READ "Error reading a file"
+# define OPEN_FILE "Could not open the file\n"
+# define FILE_READ "Error reading a file\n"
 
-# define ANT_NUM "Invalid number of ants"
-# define INVALID_LINE "Invalid line in a file"
+# define ANT_NUM "Invalid number of ants\n"
+# define INVALID_LINE "Invalid line in a file\n"
+# define INVALID_ROOM_NAME "Invalid room name\n"
+# define INVALID_COORD "Invalid coordinate\n"
 
 #endif

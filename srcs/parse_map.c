@@ -31,6 +31,7 @@
 
 //TODO read and parse rooms and links into the map
 //TODO now do the process_room function
+//TODO getting coordinates right
 
 #include <lem-in.h>
 
@@ -40,10 +41,22 @@
 
 void 				process_room(char *line, t_map *map, int flag)
 {
-	printf("%s\n", line);
-	//printf("num ants: %i\n", map->num_ants);
+	t_room_node 	*new_room;
+	size_t			len;
+
+	printf("line: %s\n", line);
 	flag = 1;
 	map->num_ants = 1;
+
+	len = validate_room_name(line, map);
+	new_room = init_room();
+	new_room->room_name = strndup(line, --len);
+
+	new_room->x = get_room_coordinate(&line, map, ++len);
+
+	printf("name: %s\n", new_room->room_name);
+	printf("x: %i\n", new_room->x);
+	exit(1);
 }
 
 void 				process_comment(char *line, t_map *map, int fd)
@@ -93,7 +106,7 @@ void 				read_map(int fd, t_map *map)
 	err = 0;
 	line = NULL;
 	get_num_ants(fd, map, line);
-	while ((err = get_next_line(fd, &line)) == 1 && map->end == NULL)
+	while ((err = get_next_line(fd, &line)) == 1)
 	{
 		if (line[0] == '#')
 			process_comment(line, map, fd);

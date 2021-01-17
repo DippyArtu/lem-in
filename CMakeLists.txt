@@ -86,4 +86,6 @@ add_executable(lem_in
         srcs/main.c
         srcs/parse_map.c
         srcs/init.c
-        srcs/clean_up.c srcs/errors.c)
+        srcs/clean_up.c
+        srcs/errors.c
+        srcs/utils.c)

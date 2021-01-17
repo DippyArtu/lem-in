@@ -27,6 +27,10 @@ void 				error(int errno, t_map *map)
 		printf(ANT_NUM);
 	else if (errno == INVALID_LINE_ERR)
 		printf(INVALID_LINE);
+	else if (errno == INVALID_ROOM_NAME_ERR)
+		printf(INVALID_ROOM_NAME);
+	else if (errno == INVALID_COORD_ERR)
+		printf(INVALID_COORD);
 	clean_up(map);
 	exit(1);
 }

@@ -31,21 +31,22 @@ typedef struct 				s_room_node
 	int 					x;
 	int 					y;
 	t_ant					*ant;
+	struct s_room_node		*next_room;
 
-	struct 			s_links
+	struct 					s_links
 	{
 		struct s_room_node	*back;
 		struct s_room_node	*forward;
 		struct s_links		*next;
-	}						t_links;
-}							room_node;
+	}						*t_links;
+}							t_room_node;
 
 typedef struct 				s_map
 {
 	int 					num_steps;
 	int 					num_ants;
-	room_node 				*start;
-	room_node 				*end;
+	t_room_node 			*start;
+	t_room_node 			*end;
 }							t_map;
 
 #endif

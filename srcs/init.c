@@ -22,3 +22,19 @@ t_map 				*init_map(void)
 	map->end = NULL;
 	return map;
 }
+
+t_room_node 		*init_room(void)
+{
+	t_room_node 	*room;
+
+	if (!(room = (t_room_node *)malloc(sizeof(t_room_node))))
+		error(MALLOC_FAIL_ERR, NULL);
+	room->room_name = NULL;
+	room->type = NONE;
+	room->x = 0;
+	room->y = 0;
+	room->ant = NULL;
+	room->next_room = NULL;
+	room->t_links = NULL;
+	return room;
+}

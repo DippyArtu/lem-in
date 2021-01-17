@@ -15,7 +15,8 @@ SRC = 	main.c \
 		parse_map.c \
 		init.c \
 		clean_up.c \
-		errors.c
+		errors.c \
+		utils.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
