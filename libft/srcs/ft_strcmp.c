@@ -24,8 +24,8 @@ int		ft_strcmp(const char *str1, const char *str2)
 		s1++;
 		s2++;
 	}
-	if (*s2 == '\0' && *s1)
+	if (*s2 == '\0' && *s1 == '\0')
 		return (1);
 	else
-		return (*s1 - *s2);
+		return (0);
 }

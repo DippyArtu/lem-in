@@ -16,6 +16,7 @@
 # define MALLOC_FAIL_ERR 3
 # define FILE_READ_ERR 4
 # define ANT_NUM_ERR 5
+# define INVALID_LINE_ERR 6
 
 # define USAGE "Usage: ./lem_in *map_file*"
 # define ARG_NUM "Invalid number of arguments"
@@ -25,5 +26,6 @@
 # define FILE_READ "Error reading a file"
 
 # define ANT_NUM "Invalid number of ants"
+# define INVALID_LINE "Invalid line in a file"
 
 #endif

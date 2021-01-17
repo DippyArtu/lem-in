@@ -25,6 +25,8 @@ void 				error(int errno, t_map *map)
 		printf(FILE_READ);
 	else if (errno == ANT_NUM_ERR)
 		printf(ANT_NUM);
+	else if (errno == INVALID_LINE_ERR)
+		printf(INVALID_LINE);
 	clean_up(map);
 	exit(1);
 }
