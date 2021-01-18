@@ -88,4 +88,4 @@ add_executable(lem_in
         srcs/init.c
         srcs/clean_up.c
         srcs/errors.c
-        srcs/utils.c)
+        srcs/room_utils.c)

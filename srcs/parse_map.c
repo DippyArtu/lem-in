@@ -31,51 +31,51 @@
 
 //TODO read and parse rooms and links into the map
 //TODO now do the process_room function
-//TODO getting coordinates right
+//TODO deal with errors in coordinate processing: empty lines, wrong coordinates, missing coordinates etc
+//TODO after coordinates are up to speed — get rid of leaks
 
 #include <lem-in.h>
 
-#define START_F 0
-#define END_F 1
-#define NA_F 2
-
-void 				process_room(char *line, t_map *map, int flag)
+void 						process_room(char *line, t_map *map, int flag)
 {
-	t_room_node 	*new_room;
-	size_t			len;
-
-	printf("line: %s\n", line);
-	flag = 1;
-	map->num_ants = 1;
+	t_room_node 			*new_room;
+	size_t					len;
 
 	len = validate_room_name(line, map);
 	new_room = init_room();
 	new_room->room_name = strndup(line, --len);
 
-	new_room->x = get_room_coordinate(&line, map, ++len);
+	line += ++len;
+	new_room->x = get_room_coordinate(&line, map);
+	if (!line || *line != ' ')
+		error(INVALID_COORD_ERR, map);
+	line++;
+	new_room->y = get_room_coordinate(&line, map);
 
-	printf("name: %s\n", new_room->room_name);
-	printf("x: %i\n", new_room->x);
-	exit(1);
+	record_room(map, new_room, flag);
 }
 
-void 				process_comment(char *line, t_map *map, int fd)
+void 						process_comment(char *line, t_map *map, int fd)
 {
-	int 			err;
+	int 					err;
 
 	err = 1;
 	if (line[1] == '#')
 	{
 		if (ft_strcmp(line, "##start") == 1)
 		{
+			if (map->start)
+				error(START_FLAG_ERR, map);
 			if ((err = get_next_line(fd, &line)) == 1)
-				process_room(line, map, START_F);
+				process_room(line, map, START);
 			free(line);
 		}
 		else if (ft_strcmp(line, "##end") == 1)
 		{
+			if (map->end)
+				error(END_FLAG_ERR, map);
 			if ((err = get_next_line(fd, &line)) == 1)
-				process_room(line, map, END_F);
+				process_room(line, map, END);
 			free(line);
 		}
 	}
@@ -83,7 +83,7 @@ void 				process_comment(char *line, t_map *map, int fd)
 		error(FILE_READ_ERR, map);
 }
 
-void 				get_num_ants(int fd, t_map *map, char *line)
+void 						get_num_ants(int fd, t_map *map, char *line)
 {
 	if (get_next_line(fd, &line) != 1)
 	{
@@ -98,10 +98,11 @@ void 				get_num_ants(int fd, t_map *map, char *line)
 	free(line);
 }
 
-void 				read_map(int fd, t_map *map)
+//TODO error on empty & non-compliant line — empty line after ##start throws a sigfault
+void 						read_map(int fd, t_map *map)
 {
-	char 			*line;
-	int 			err;
+	char 					*line;
+	int 					err;
 
 	err = 0;
 	line = NULL;
@@ -111,7 +112,7 @@ void 				read_map(int fd, t_map *map)
 		if (line[0] == '#')
 			process_comment(line, map, fd);
 		else if (isdigit(line[0]) || isalpha(line[0]))
-			process_room(line, map, NA_F);
+			process_room(line, map, NONE);
 		else
 		{
 			free(line);
@@ -124,9 +125,9 @@ void 				read_map(int fd, t_map *map)
 		error(FILE_READ_ERR, map);
 }
 
-t_map 				*get_map(int fd)
+t_map 						*get_map(int fd)
 {
-	t_map 			*map;
+	t_map 					*map;
 
 	map = init_map();
 	read_map(fd, map);

@@ -10,10 +10,10 @@
 
 #include <lem-in.h>
 
-int					main(int argc, char **argv)
+int							main(int argc, char **argv)
 {
-	t_map 			*map;
-	int 			fd;
+	t_map 					*map;
+	int 					fd;
 
 	fd = 0;
 	map = NULL;
@@ -27,7 +27,24 @@ int					main(int argc, char **argv)
 	map = get_map(fd);
 	close(fd);
 
-	printf("num ants: %i\n", map->num_ants);
+	//---------------------------------------------- test stuff
+	printf("num ants: %i\n\n", map->num_ants);
+
+	struct s_room_node		*tmp;
+	tmp = map->rooms_head;
+	while (1)
+	{
+		printf("name: %s		", tmp->room_name);
+		printf("x: %i		", tmp->x);
+		printf("y: %i		", tmp->y);
+		printf("type: %i\n", tmp->type);
+		if (!tmp->room_next)
+			break;
+		tmp = tmp->room_next;
+	}
+	printf("\nStart room name: %s\n", map->start->room_name);
+	printf("\nEnd room name: %s\n", map->end->room_name);
+	//----------------------------------------------
 
 	clean_up(map);
 

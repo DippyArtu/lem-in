@@ -16,7 +16,7 @@ SRC = 	main.c \
 		init.c \
 		clean_up.c \
 		errors.c \
-		utils.c
+		room_utils.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
@@ -55,7 +55,7 @@ $(LIB_OBJ_DIR)%.o: $(LIB_SRC_DIR)%.c $(LIB_INCS)
 		@make -C libft
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS)
-		gcc $(FLAGS) -o $@ -c $<
+		clang $(FLAGS) -o $@ -c $<
 
 clean:
 		@make clean -C libft

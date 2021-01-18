@@ -19,6 +19,8 @@
 # define INVALID_LINE_ERR 6
 # define INVALID_ROOM_NAME_ERR 7
 # define INVALID_COORD_ERR 8
+# define START_FLAG_ERR 9
+# define END_FLAG_ERR 10
 
 # define USAGE "Usage: ./lem_in *map_file*\n"
 # define ARG_NUM "Invalid number of arguments\n"
@@ -31,5 +33,7 @@
 # define INVALID_LINE "Invalid line in a file\n"
 # define INVALID_ROOM_NAME "Invalid room name\n"
 # define INVALID_COORD "Invalid coordinate\n"
+# define START_FLAG "A map can have only one start room\n"
+# define END_FLAG "A map can have only one end room\n"
 
 #endif

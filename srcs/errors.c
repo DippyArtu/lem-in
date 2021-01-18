@@ -10,7 +10,7 @@
 
 #include <lem-in.h>
 
-void 				error(int errno, t_map *map)
+void 						error(int errno, t_map *map)
 {
 	if (errno == ARG_NUM_ERR)
 	{
@@ -31,6 +31,10 @@ void 				error(int errno, t_map *map)
 		printf(INVALID_ROOM_NAME);
 	else if (errno == INVALID_COORD_ERR)
 		printf(INVALID_COORD);
+	else if (errno == START_FLAG_ERR)
+		printf(START_FLAG);
+	else if (errno == END_FLAG_ERR)
+		printf(END_FLAG);
 	clean_up(map);
 	exit(1);
 }

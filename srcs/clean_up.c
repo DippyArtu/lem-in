@@ -10,7 +10,7 @@
 
 #include <lem-in.h>
 
-void 				clean_up(t_map *map)
+void 						clean_up(t_map *map)
 {
 	if (map)
 		free(map);

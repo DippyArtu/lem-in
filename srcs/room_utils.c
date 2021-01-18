@@ -10,9 +10,9 @@
 
 #include <lem-in.h>
 
-size_t				validate_room_name(char *line, t_map *map)
+size_t						validate_room_name(char *line, t_map *map)
 {
-	size_t 			len;
+	size_t 					len;
 
 	len = 0;
 	if (line[0] == 'L')
@@ -30,24 +30,55 @@ size_t				validate_room_name(char *line, t_map *map)
 	return len;
 }
 
-//TODO throw an error on non-numbers
-int 				get_room_coordinate(char **line, t_map *map, size_t len)
+int 						get_room_coordinate(char **line, t_map *map)
 {
-	char 			val[11];
-	int 			i;
-	int 			coord;
+	char 					val[11];
+	int 					i;
+	int 					coord;
 
 	i = 0;
 	bzero(&val, 11);
 	coord = 0;
-	*line += len;
+	if (**line == '-')
+	{
+		val[i++] = **line;
+		*line += 1;
+	}
 	while (**line && **line != ' ')
 	{
-		if (i >= 11)
+		if (i >= 11 || **line < 48 || **line > 57)
 			error(INVALID_COORD_ERR, map);
 		val[i++] = **line;
 		*line += 1;
 	}
 	coord = ft_atoi(val);
 	return coord;
+}
+
+void 						record_room(t_map *map, t_room_node *new_room, int flag)
+{
+	struct s_room_node 		*tmp;
+
+	tmp = NULL;
+	if (!map->rooms_head)
+		map->rooms_head = new_room;
+	else if (map->rooms_head)
+	{
+		tmp = map->rooms_head;
+		while (tmp->room_next != NULL)
+			tmp = tmp->room_next;
+		tmp->room_next = new_room;
+	}
+	if (flag == START)
+	{
+		new_room->type = START;
+		map->start = new_room;
+	}
+	else if (flag == END)
+	{
+		new_room->type = END;
+		map->end = new_room;
+	}
+	else if (flag == NONE)
+		new_room->type = NONE;
 }
