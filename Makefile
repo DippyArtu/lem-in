@@ -16,7 +16,8 @@ SRC = 	main.c \
 		init.c \
 		clean_up.c \
 		errors.c \
-		room_utils.c
+		room_utils.c \
+		parse_rooms.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

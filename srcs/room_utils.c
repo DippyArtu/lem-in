@@ -15,17 +15,20 @@ size_t						validate_room_name(char *line, t_map *map)
 	size_t 					len;
 
 	len = 0;
-	if (line[0] == 'L')
+	if (!line || line[0] == '\0' || line[0] == 'L' || line[0] == '#')
 	{
 		free(line);
 		error(INVALID_ROOM_NAME_ERR, map);
 	}
-	while (line[len++] != ' ')
-		;
-	if (!line[len])
+	while (line[len] != '\0')
+	{
+		if (line[len++] == ' ')
+			break;
+	}
+	if (line[len] == '\0')
 	{
 		free(line);
-		error(INVALID_ROOM_NAME_ERR, map);
+		error(INVALID_LINE_ERR, map);
 	}
 	return len;
 }
