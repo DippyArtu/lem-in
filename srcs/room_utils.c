@@ -26,10 +26,7 @@ size_t						validate_room_name(char *line, t_map *map)
 			break;
 	}
 	if (line[len] == '\0')
-	{
-		free(line);
-		error(INVALID_LINE_ERR, map);
-	}
+		return 0;
 	return len;
 }
 

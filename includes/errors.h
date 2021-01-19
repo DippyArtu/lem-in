@@ -23,6 +23,7 @@
 # define END_FLAG_ERR 10
 # define NO_START_ERR 11
 # define NO_END_ERR 12
+# define NO_LINKS_ERR 13
 
 # define USAGE "Usage: ./lem_in *map_file*\n"
 # define ARG_NUM "ERROR: Invalid number of arguments\n"
@@ -39,5 +40,6 @@
 # define END_FLAG "ERROR: A map can have only one end room\n"
 # define NO_START "ERROR: No start room were found\n"
 # define NO_END "ERROR: No end room were found\n"
+# define NO_LINKS "ERROR: No links between rooms were found\n"
 
 #endif

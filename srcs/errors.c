@@ -39,6 +39,8 @@ void 						error(int errno, t_map *map)
 		printf(NO_START);
 	else if (errno == NO_END_ERR)
 		printf(NO_END);
+	else if (errno == NO_LINKS_ERR)
+		printf(NO_LINKS);
 	clean_up(map);
 	exit(1);
 }

@@ -28,8 +28,8 @@ struct s_room_node 			*free_room(t_room_node *room);
 
 t_map 						*get_map(int fd);
 
-void 						get_rooms(int fd, t_map *map);
-void 						process_room(char *line, t_map *map, int flag);
+int 						get_rooms(int fd, t_map *map);
+int 						process_room(char *line, t_map *map, int flag);
 void 						process_comment(char *line, t_map *map, int fd);
 void 						get_num_ants(int fd, t_map *map, char *line);
 
