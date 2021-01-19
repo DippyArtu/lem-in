@@ -21,19 +21,23 @@
 # define INVALID_COORD_ERR 8
 # define START_FLAG_ERR 9
 # define END_FLAG_ERR 10
+# define NO_START_ERR 11
+# define NO_END_ERR 12
 
 # define USAGE "Usage: ./lem_in *map_file*\n"
-# define ARG_NUM "Invalid number of arguments\n"
-# define MALLOC_FAIL "Could not allocate memory\n"
+# define ARG_NUM "ERROR: Invalid number of arguments\n"
+# define MALLOC_FAIL "ERROR: Could not allocate memory\n"
 
-# define OPEN_FILE "Could not open the file\n"
-# define FILE_READ "Error reading a file\n"
+# define OPEN_FILE "ERROR: Could not open the file\n"
+# define FILE_READ "ERROR: Error reading a file\n"
 
-# define ANT_NUM "Invalid number of ants\n"
-# define INVALID_LINE "Invalid line in a file\n"
-# define INVALID_ROOM_NAME "Invalid room name\n"
-# define INVALID_COORD "Invalid coordinate\n"
-# define START_FLAG "A map can have only one start room\n"
-# define END_FLAG "A map can have only one end room\n"
+# define ANT_NUM "ERROR: Invalid number of ants\n"
+# define INVALID_LINE "ERROR: Invalid line in a file\n"
+# define INVALID_ROOM_NAME "ERROR: Invalid room name\n"
+# define INVALID_COORD "ERROR: Invalid coordinate\n"
+# define START_FLAG "ERROR: A map can have only one start room\n"
+# define END_FLAG "ERROR: A map can have only one end room\n"
+# define NO_START "ERROR: No start room were found\n"
+# define NO_END "ERROR: No end room were found\n"
 
 #endif

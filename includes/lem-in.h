@@ -18,10 +18,13 @@
 # include <map_structs.h>
 # include <errors.h>
 
+void 						error(int errno, t_map *map);
+
 t_map 						*init_map(void);
 t_room_node 				*init_room(void);
-void 						error(int errno, t_map *map);
+
 void 						clean_up(t_map *map);
+struct s_room_node 			*free_room(t_room_node *room);
 
 t_map 						*get_map(int fd);
 

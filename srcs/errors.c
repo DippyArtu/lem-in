@@ -35,6 +35,10 @@ void 						error(int errno, t_map *map)
 		printf(START_FLAG);
 	else if (errno == END_FLAG_ERR)
 		printf(END_FLAG);
+	else if (errno == NO_START_ERR)
+		printf(NO_START);
+	else if (errno == NO_END_ERR)
+		printf(NO_END);
 	clean_up(map);
 	exit(1);
 }
