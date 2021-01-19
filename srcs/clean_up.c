@@ -29,18 +29,20 @@ void 						clean_up(t_map *map)
 	struct s_room_node		*tmp;
 	struct s_room_node		*next;
 
-	tmp = map->rooms_head;
-	next = NULL;
-	if (map->rooms_head)
-	{
-		while (1)
-		{
-			next = free_room(tmp);
-			if (!next)
-				break;
-			tmp = next;
-		}
-	}
 	if (map)
+	{
+		tmp = map->rooms_head;
+		next = NULL;
+		if (map->rooms_head)
+		{
+			while (1)
+			{
+				next = free_room(tmp);
+				if (!next)
+					break;
+				tmp = next;
+			}
+		}
 		free(map);
+	}
 }

@@ -28,7 +28,7 @@ struct s_room_node 			*free_room(t_room_node *room);
 
 t_map 						*get_map(int fd);
 
-int 						get_rooms(int fd, t_map *map);
+char 						*get_rooms(int fd, t_map *map);
 int 						process_room(char *line, t_map *map, int flag);
 void 						process_comment(char *line, t_map *map, int fd);
 void 						get_num_ants(int fd, t_map *map, char *line);
@@ -36,5 +36,9 @@ void 						get_num_ants(int fd, t_map *map, char *line);
 size_t						validate_room_name(char *line, t_map *map);
 int 						get_room_coordinate(char **line, t_map *map);
 void 						record_room(t_map *map, t_room_node *new_room, int flag);
+
+void 						get_links(char *line, int fd, t_map *map);
+
+char 						*get_link_name(char **line, t_map *map);
 
 #endif

@@ -90,4 +90,5 @@ add_executable(lem_in
         srcs/errors.c
         srcs/room_utils.c
         srcs/parse_rooms.c
-        srcs/parse_links.c)
+        srcs/parse_links.c
+        srcs/links_utils.c)

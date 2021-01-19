@@ -41,6 +41,8 @@ void 						error(int errno, t_map *map)
 		printf(NO_END);
 	else if (errno == NO_LINKS_ERR)
 		printf(NO_LINKS);
+	else if (errno == INVALID_LINK_ERR)
+		printf(INVALID_LINK);
 	clean_up(map);
 	exit(1);
 }

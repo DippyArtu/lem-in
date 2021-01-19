@@ -29,21 +29,22 @@
  * Room's name will never start with # or L
 */
 
-//TODO when encounter line with no space — check if it's a link
-// - if it is, move onto link parsing
-// - if not, throw an error
-
-//TODO don't return int from get rooms, return a line, so that get_links can keep reading from where the get_rooms stopped
+//TODO working on links
 
 #include <lem-in.h>
 
 t_map 						*get_map(int fd)
 {
 	t_map 					*map;
+	char 					*line;
 
 	map = init_map();
-	get_rooms(fd, map);
-	printf("links found\n\n"); //get_links function here.
+	line = get_rooms(fd, map);
+	if (!map->start)
+		error(NO_START_ERR, map);
+	if (!map->end)
+		error(NO_END_ERR, map);
+	get_links(line, fd, map);
 
 	return map;
 }
