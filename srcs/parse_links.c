@@ -13,34 +13,39 @@
 #define FORWARD_LINK 0
 #define BACKWARD_LINK 1
 
-//TODO build the links
-// - existing links are getting lost instead of being updated
-
 //TODO after links are done do:
 // - error management
 // - make sure there aren't leaks
 
 
 //TODO work on the link insertion algorithm
-// - what i think happens here, is that when there is a link existing in a room (forward or backward)
-//	 instead of inserting a missing link, it inserts a new link node
-//   i.e. the room has a fov link but no back, instead of writing in a back link, it creates a new link node just for the back link alone
-//	 so the solution would be to check if theres a missing link in a node and if it makes sense to update the missing link before
-//	 inserting a new node
+// - getting there, now i'd like rooms to have a separate link structure per link in map, so things aren't getting mixed up
+
 void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag)
 {
 	struct s_links			*links_room;
 	struct s_links			*tmp;
 
 	tmp = NULL;
-	links_room = init_link();
+	links_room = NULL;
 
 	if (room_curr->links)
 	{
+		if (flag == FORWARD_LINK && !room_curr->links->forward && (room_curr->type != END))
+		{
+			room_curr->links->forward = room_insert;
+			return;
+		}
+		if (flag == BACKWARD_LINK && !room_curr->links->back && (room_curr->type != START))
+		{
+			room_curr->links->back = room_insert;
+			return;
+		}
 		tmp = room_curr->links;
 		while (room_curr->links->next)
 			room_curr->links = room_curr->links->next;
 	}
+	links_room = init_link();
 	room_curr->links = links_room;
 	if (flag == FORWARD_LINK)
 		links_room->forward = room_insert;
@@ -69,18 +74,6 @@ void 						create_link(t_map *map, char *name1, char *name2)
 
 	insert_link(room1, room2, FORWARD_LINK);
 	insert_link(room2, room1, BACKWARD_LINK);
-
-	//TODO not the best way to display the links — rooms with multiple links are ignored
-	// - might as well code it in properly coz i'll need to use it later on anyways
-	//---------------------------------------------------test stuff
-	printf("%s	to	", room1->room_name);
-	if (room1->links->forward)
-		printf("%s\n", room1->links->forward->room_name);
-
-	printf("%s	to	", room2->room_name);
-	if (room2->links->back)
-		printf("%s\n\n", room2->links->back->room_name);
-	//---------------------------------------------------test stuff
 }
 
 void 						process_link(char *line, t_map *map)
@@ -116,5 +109,54 @@ void 						get_links(char *line, int fd, t_map *map)
 	free(line);
 	if (err < 0)
 		error(FILE_READ_ERR, map);
-	exit(0);
+
+
+	//---------------------------------------------------test stuff
+	struct s_room_node		*room;
+	struct s_room_node		*r_next;
+	struct s_links			*link;
+	struct s_links			*l_next;
+	int 					i;
+
+	i = 0;
+
+	r_next = map->rooms_head;
+	while (r_next)
+	{
+		i++;
+		room = r_next;
+		if (room->links)
+		{
+			l_next = room->links;
+			while (l_next)
+			{
+				link = l_next;
+				if (room->type == NONE)
+				{
+					printf("%s  --->  %s --->  %s\n", link->back->room_name, room->room_name, link->forward->room_name);
+				}
+				else if (room->type == START)
+				{
+					printf("\nSTART: ");
+					printf("%s  --->  %s\n", room->room_name, link->forward->room_name);
+					printf("________________________\n");
+				}
+				else if (room->type == END)
+				{
+					printf("________________________\n");
+					printf("%s  --->  %s", link->back->room_name, room->room_name);
+					printf(" : END\n");
+				}
+				printf("\n");
+				l_next = link->next;
+			}
+		}
+		else
+			printf("Room %s has no links\n\n", room->room_name);
+		r_next = room->room_next;
+	}
+	printf("%i rooms displayed\n\n", i);
+	//---------------------------------------------------test stuff
+
+	//exit(0);
 }
