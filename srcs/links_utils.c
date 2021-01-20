@@ -31,3 +31,17 @@ char 						*get_link_name(char **line, t_map *map)
 	}
 	return name;
 }
+
+struct s_room_node			*find_room(t_map *map, char *name)
+{
+	struct s_room_node		*room;
+
+	room = map->rooms_head;
+	while (room)
+	{
+		if (ft_strcmp(name, room->room_name) == 1)
+			return room;
+		room = room->room_next;
+	}
+	return NULL;
+}

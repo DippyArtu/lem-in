@@ -26,6 +26,7 @@
 # define NO_LINKS_ERR 13
 # define INVALID_LINK_ERR 14
 # define LARGE_NAME_ERR 15
+# define NO_LINK_ROOM_ERR 16
 
 # define USAGE "Usage: ./lem_in *map_file*\n"
 # define ARG_NUM "ERROR: Invalid number of arguments\n"
@@ -46,5 +47,6 @@
 
 # define INVALID_LINK "ERROR: Invalid link\n"
 # define LARGE_NAME "ERROR: Room name is too large — 100 characters max\n"
+# define NO_LINK_ROOM "ERROR: Invalid link — room linked doesn't exist\n"
 
 #endif

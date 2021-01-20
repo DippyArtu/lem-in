@@ -45,6 +45,8 @@ void 						error(int errno, t_map *map)
 		printf(INVALID_LINK);
 	else if (errno == LARGE_NAME_ERR)
 		printf(LARGE_NAME);
+	else if (errno == NO_LINK_ROOM_ERR)
+		printf(NO_LINK_ROOM);
 	clean_up(map);
 	exit(1);
 }

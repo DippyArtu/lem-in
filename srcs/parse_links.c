@@ -10,12 +10,25 @@
 
 #include <lem-in.h>
 
-//TODO make sure that rooms received do exist and build the links
+//TODO build the links
 
-//void 						create_link(t_map *map, char *name1, char *name2)
-//{
-//
-//}
+void 						create_link(t_map *map, char *name1, char *name2)
+{
+	struct s_room_node		*room1;
+	struct s_room_node		*room2;
+
+	room1 = NULL;
+	room2 = NULL;
+	if (!(room1 = find_room(map, name1)) || !(room2 = find_room(map, name2)))
+	{
+		free(name1);
+		free(name2);
+		error(NO_LINK_ROOM_ERR, map);
+	}
+
+
+	printf("room1: %s	room2: %s\n", room1->room_name, room2->room_name);
+}
 
 void 						process_link(char *line, t_map *map)
 {
@@ -31,8 +44,7 @@ void 						process_link(char *line, t_map *map)
 	name2 = get_link_name(&line, map);
 	free(line_tmp);
 
-	printf("name1: %s	name2: %s\n", name1, name2);
-	//validate and build a link here
+	create_link(map, name1, name2);
 
 	free(name1);
 	free(name2);
