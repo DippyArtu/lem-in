@@ -13,6 +13,10 @@
 //TODO build the links
 // - yeah sig fault lol
 
+//TODO after links are done do:
+// - error management
+// - make sure there aren't leaks
+
 void 						create_link(t_map *map, char *name1, char *name2)
 {
 	struct s_room_node		*room1;
