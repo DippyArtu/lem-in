@@ -43,6 +43,8 @@ void 						error(int errno, t_map *map)
 		printf(NO_LINKS);
 	else if (errno == INVALID_LINK_ERR)
 		printf(INVALID_LINK);
+	else if (errno == LARGE_NAME_ERR)
+		printf(LARGE_NAME);
 	clean_up(map);
 	exit(1);
 }

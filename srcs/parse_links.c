@@ -12,25 +12,43 @@
 
 //TODO make sure that rooms received do exist and build the links
 
-void 						get_links(char *line, int fd, t_map *map)
+//void 						create_link(t_map *map, char *name1, char *name2)
+//{
+//
+//}
+
+void 						process_link(char *line, t_map *map)
 {
-//	struct s_room_node		*room;
 	char 					*name1;
 	char 					*name2;
-	fd = 1;
+	char 					*line_tmp;
 
+	line_tmp = line;
 	name1 = get_link_name(&line, map);
 	if (*line == '\0')
 		error(INVALID_LINK_ERR, map);
 	line++;
 	name2 = get_link_name(&line, map);
+	free(line_tmp);
 
-	//----------------------------------------- test stuff
-	printf("name1: %s\n", name1);
-	printf("name2: %s\n", name2);
-	exit(0);
-	//----------------------------------------- test stuff
+	printf("name1: %s	name2: %s\n", name1, name2);
+	//validate and build a link here
 
 	free(name1);
 	free(name2);
+}
+
+void 						get_links(char *line, int fd, t_map *map)
+{
+	int 					err;
+
+	err = 0;
+	process_link(line, map);
+	while ((err = get_next_line(fd, &line)) == 1)
+	{
+		process_link(line, map);
+	}
+	free(line);
+	if (err < 0)
+		error(FILE_READ_ERR, map);
 }

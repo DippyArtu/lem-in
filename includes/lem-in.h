@@ -40,5 +40,6 @@ void 						record_room(t_map *map, t_room_node *new_room, int flag);
 void 						get_links(char *line, int fd, t_map *map);
 
 char 						*get_link_name(char **line, t_map *map);
+void 						process_link(char *line, t_map *map);
 
 #endif
