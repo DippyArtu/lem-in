@@ -10,7 +10,22 @@
 
 #include <lem-in.h>
 
-//TODO links clean-up
+void 						free_links(t_room_node *room)
+{
+	struct s_links			*tmp;
+	struct s_links			*next;
+
+	tmp = room->links;
+	next = room->links->next;
+	while (next)
+	{
+		free(tmp);
+		tmp = next;
+		next = next->next;
+	}
+	free(tmp);
+}
+
 struct s_room_node 			*free_room(t_room_node *room)
 {
 	struct s_room_node		*next;
@@ -19,6 +34,8 @@ struct s_room_node 			*free_room(t_room_node *room)
 		free(room->room_name);
 	if (room->ant)
 		free(room->ant);
+	if (room->links)
+		free_links(room);
 	next = room->room_next;
 	free(room);
 	return next;

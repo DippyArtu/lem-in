@@ -10,6 +10,18 @@
 
 #include <lem-in.h>
 
+struct s_links				*init_link(void)
+{
+	struct s_links			*link;
+
+	if (!(link = (struct s_links *)malloc(sizeof(struct s_links))))
+		error(MALLOC_FAIL_ERR, NULL);
+	link->next = NULL;
+	link->back = NULL;
+	link->forward = NULL;
+	return link;
+}
+
 t_map 						*init_map(void)
 {
 	t_map 					*map;
@@ -36,6 +48,6 @@ t_room_node 				*init_room(void)
 	room->y = 0;
 	room->ant = NULL;
 	room->room_next = NULL;
-	room->t_links = NULL;
+	room->links = NULL;
 	return room;
 }

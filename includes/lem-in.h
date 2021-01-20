@@ -22,9 +22,11 @@ void 						error(int errno, t_map *map);
 
 t_map 						*init_map(void);
 t_room_node 				*init_room(void);
+struct s_links				*init_link(void);
 
 void 						clean_up(t_map *map);
 struct s_room_node 			*free_room(t_room_node *room);
+void 						free_links(t_room_node *room);
 
 t_map 						*get_map(int fd);
 

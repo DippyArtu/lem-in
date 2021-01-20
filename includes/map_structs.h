@@ -64,7 +64,7 @@ typedef struct 				s_room_node
 		struct s_room_node	*back;
 		struct s_room_node	*forward;
 		struct s_links		*next;
-	}						*t_links;
+	}						*links;
 }							t_room_node;
 
 /*
