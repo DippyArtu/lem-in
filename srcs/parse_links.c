@@ -10,24 +10,56 @@
 
 #include <lem-in.h>
 
+#define FORWARD_LINK 0
+#define BACKWARD_LINK 1
+
 //TODO build the links
-// - yeah sig fault lol
+// - existing links are getting lost instead of being updated
 
 //TODO after links are done do:
 // - error management
 // - make sure there aren't leaks
 
+
+//TODO work on the link insertion algorithm
+// - what i think happens here, is that when there is a link existing in a room (forward or backward)
+//	 instead of inserting a missing link, it inserts a new link node
+//   i.e. the room has a fov link but no back, instead of writing in a back link, it creates a new link node just for the back link alone
+//	 so the solution would be to check if theres a missing link in a node and if it makes sense to update the missing link before
+//	 inserting a new node
+void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag)
+{
+	struct s_links			*links_room;
+	struct s_links			*tmp;
+
+	tmp = NULL;
+	links_room = init_link();
+
+	if (room_curr->links)
+	{
+		tmp = room_curr->links;
+		while (room_curr->links->next)
+			room_curr->links = room_curr->links->next;
+	}
+	room_curr->links = links_room;
+	if (flag == FORWARD_LINK)
+		links_room->forward = room_insert;
+	else if (flag == BACKWARD_LINK)
+		links_room->back = room_insert;
+	if (tmp)
+		room_curr->links = tmp;
+	else
+		room_curr->links = links_room;
+	tmp = NULL;
+}
+
 void 						create_link(t_map *map, char *name1, char *name2)
 {
 	struct s_room_node		*room1;
 	struct s_room_node		*room2;
-	struct s_links			*links_room1;
-	struct s_links			*links_room2;
-	struct s_links			*tmp;
 
 	room1 = NULL;
 	room2 = NULL;
-	tmp = NULL;
 	if (!(room1 = find_room(map, name1)) || !(room2 = find_room(map, name2)))
 	{
 		free(name1);
@@ -35,39 +67,20 @@ void 						create_link(t_map *map, char *name1, char *name2)
 		error(NO_LINK_ROOM_ERR, map);
 	}
 
-	links_room1 = init_link();
-	links_room2 = init_link();
+	insert_link(room1, room2, FORWARD_LINK);
+	insert_link(room2, room1, BACKWARD_LINK);
 
-	if (room1->links)
-	{
-		tmp = room1->links;
-		while (room1->links->next)
-			room1->links = room1->links->next;
-	}
-	room1->links = links_room1;
-	links_room1->forward = room2;
-	if (tmp)
-		room1->links = tmp;
-	else
-		room1->links = links_room1;
+	//TODO not the best way to display the links — rooms with multiple links are ignored
+	// - might as well code it in properly coz i'll need to use it later on anyways
+	//---------------------------------------------------test stuff
+	printf("%s	to	", room1->room_name);
+	if (room1->links->forward)
+		printf("%s\n", room1->links->forward->room_name);
 
-	tmp = NULL;
-	if (room2->links)
-	{
-		tmp = room2->links;
-		while (room2->links->next)
-			room2->links = room2->links->next;
-	}
-	room2->links = links_room2;
-	links_room2->back = room1;
-	if (tmp)
-		room2->links = tmp;
-	else
-		room2->links = links_room2;
-	tmp = NULL;
-
-	printf("%s	to	%s\n", room1->room_name, room1->links->forward->room_name);
-	printf("%s	to	%s\n\n", room2->room_name, room2->links->back->room_name);
+	printf("%s	to	", room2->room_name);
+	if (room2->links->back)
+		printf("%s\n\n", room2->links->back->room_name);
+	//---------------------------------------------------test stuff
 }
 
 void 						process_link(char *line, t_map *map)
@@ -90,8 +103,6 @@ void 						process_link(char *line, t_map *map)
 	free(name2);
 }
 
-//TODO sigfault fucks on second entry to process_link function
-
 void 						get_links(char *line, int fd, t_map *map)
 {
 	int 					err;
@@ -100,10 +111,10 @@ void 						get_links(char *line, int fd, t_map *map)
 	process_link(line, map);
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
-		printf("hi\n");
 		process_link(line, map);
 	}
 	free(line);
 	if (err < 0)
 		error(FILE_READ_ERR, map);
+	exit(0);
 }
