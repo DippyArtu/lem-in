@@ -116,20 +116,23 @@ void 						get_links(char *line, int fd, t_map *map)
 	struct s_room_node		*r_next;
 	struct s_links			*link;
 	struct s_links			*l_next;
-	int 					i;
+	int 					i_rooms;
+	int 					i_links;
 
-	i = 0;
+	i_rooms = 0;
+	i_links = 0;
 
 	r_next = map->rooms_head;
 	while (r_next)
 	{
-		i++;
+		i_rooms++;
 		room = r_next;
 		if (room->links)
 		{
 			l_next = room->links;
 			while (l_next)
 			{
+				i_links++;
 				link = l_next;
 				if (room->type == NONE)
 				{
@@ -155,8 +158,8 @@ void 						get_links(char *line, int fd, t_map *map)
 			printf("Room %s has no links\n\n", room->room_name);
 		r_next = room->room_next;
 	}
-	printf("%i rooms displayed\n\n", i);
+	printf("%i rooms displayed\n", i_rooms);
+	printf("%i links displayed\n\n", i_links);
+	exit(0);
 	//---------------------------------------------------test stuff
-
-	//exit(0);
 }
