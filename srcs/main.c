@@ -15,6 +15,11 @@ int							main(int argc, char **argv)
 	t_map 					*map;
 	int 					fd;
 
+	//---------------------------------------------- hash
+	test_hash();
+	exit(0);
+	//---------------------------------------------- hash exit(0)
+
 	fd = 0;
 	map = NULL;
 

@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 99)
 
 include_directories(includes)
 include_directories(libft/includes)
+include_directories(libhash/includes)
 
 add_executable(lem_in
         libft/includes/get_next_line.h
@@ -80,6 +81,12 @@ add_executable(lem_in
         libft/srcs/get_next_line.c
         libft/Makefile
 
+        libhash/includes/hash_table.h
+        libhash/includes/prime.h
+        libhash/srcs/hash_table.c
+        libhash/srcs/prime.c
+        libhash/Makefile
+
         includes/lem-in.h
         includes/map_structs.h
         includes/errors.h
@@ -91,4 +98,5 @@ add_executable(lem_in
         srcs/room_utils.c
         srcs/parse_rooms.c
         srcs/parse_links.c
-        srcs/links_utils.c)
+        srcs/links_utils.c
+        srcs/hash_test.c)
