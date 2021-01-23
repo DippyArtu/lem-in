@@ -106,7 +106,7 @@ typedef struct 				s_map
 	int 					num_ants;
 	t_room_node 			*start;
 	t_room_node 			*end;
-	struct s_room_node		*rooms_head;
+//	struct s_room_node		*rooms_head;
 	t_hash_table 			*rooms_hash;
 }							t_map;
 

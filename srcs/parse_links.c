@@ -17,10 +17,6 @@
 // - error management
 // - make sure there aren't leaks
 
-
-//TODO work on the link insertion algorithm
-// - getting there, now i'd like rooms to have a separate link structure per link in map, so things aren't getting mixed up
-
 void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag)
 {
 	struct s_links			*links_room;
@@ -65,7 +61,8 @@ void 						create_link(t_map *map, char *name1, char *name2)
 
 	room1 = NULL;
 	room2 = NULL;
-	if (!(room1 = find_room(map, name1)) || !(room2 = find_room(map, name2)))
+
+	if (!(room1 = ht_search(map->rooms_hash, name1)) || !(room2 = ht_search(map->rooms_hash, name2)))
 	{
 		free(name1);
 		free(name2);
@@ -111,22 +108,31 @@ void 						get_links(char *line, int fd, t_map *map)
 		error(FILE_READ_ERR, map);
 
 
-	//---------------------------------------------------test stuff
-	struct s_room_node		*room;
-	struct s_room_node		*r_next;
-	struct s_links			*link;
-	struct s_links			*l_next;
+	//---------------------------------------------------test stuff 2
 	int 					i_rooms;
 	int 					i_links;
+	struct s_links			*link;
+	struct s_links			*l_next;
+	struct s_room_node		*room;
 
-	i_rooms = 0;
 	i_links = 0;
+	i_rooms = 0;
 
-	r_next = map->rooms_head;
-	while (r_next)
+	if (!map->start)
 	{
-		i_rooms++;
-		room = r_next;
+		printf("No start room\n");
+		abort();
+	}
+	if (!map->end)
+	{
+		printf("No end room\n");
+		abort();
+	}
+
+	room = map->start;
+	while (room->type != END)
+	{
+		printf("room name: %s\n", room->room_name);
 		if (room->links)
 		{
 			l_next = room->links;
@@ -156,10 +162,11 @@ void 						get_links(char *line, int fd, t_map *map)
 		}
 		else
 			printf("Room %s has no links\n\n", room->room_name);
-		r_next = room->room_next;
+		room = room->links->forward;
+		i_rooms++;
 	}
 	printf("%i rooms displayed\n", i_rooms);
 	printf("%i links displayed\n\n", i_links);
-	exit(0);
-	//---------------------------------------------------test stuff
+	//exit(0);
+	//---------------------------------------------------test stuff 2
 }

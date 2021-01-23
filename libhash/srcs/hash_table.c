@@ -60,7 +60,6 @@ void 						free_links(t_room_node *room);
 static void 				ht_del_item(t_hash_item *item)
 {
 	free(item->key);
-	//free(item->value);
 	free_room(item->value);
 	free(item);
 }

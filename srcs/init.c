@@ -32,7 +32,7 @@ t_map 						*init_map(void)
 	map->num_ants = 0;
 	map->start = NULL;
 	map->end = NULL;
-	map->rooms_head = NULL;
+//	map->rooms_head = NULL;
 	map->rooms_hash = ht_new();
 	return map;
 }

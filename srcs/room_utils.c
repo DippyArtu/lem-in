@@ -55,21 +55,8 @@ int 						get_room_coordinate(char **line, t_map *map)
 	return coord;
 }
 
-//TODO rewrite this with hashes
 void 						record_room(t_map *map, t_room_node *new_room, int flag)
 {
-	struct s_room_node 		*tmp;
-
-	tmp = NULL;
-	if (!map->rooms_head)
-		map->rooms_head = new_room;
-	else if (map->rooms_head)
-	{
-		tmp = map->rooms_head;
-		while (tmp->room_next != NULL)
-			tmp = tmp->room_next;
-		tmp->room_next = new_room;
-	}
 	if (flag == START)
 	{
 		new_room->type = START;
@@ -82,4 +69,8 @@ void 						record_room(t_map *map, t_room_node *new_room, int flag)
 	}
 	else if (flag == NONE)
 		new_room->type = NONE;
+
+	if (ht_search(map->rooms_hash, new_room->room_name) != NULL)
+		error(DUPLICATE_NAME_ERR, map);
+	ht_insert(map->rooms_hash, new_room->room_name, new_room);
 }

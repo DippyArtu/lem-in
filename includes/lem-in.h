@@ -54,6 +54,5 @@ void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_i
 
 //---------------------------------------------------------------------------------------------------------------------- link_utils.c
 char 						*get_link_name(char **line, t_map *map);
-struct s_room_node			*find_room(t_map *map, char *name);
 
 #endif
