@@ -67,6 +67,29 @@ typedef struct 				s_room_node
 	}						*links;
 }							t_room_node;
 
+# ifndef _HASH_STRUCT_
+ # define _HASH_STRUCT_
+/*
+ * Stores key-value pairs
+ */
+typedef struct 				s_hash_item
+{
+	char 					*key;
+	t_room_node 			*value;
+}							t_hash_item;
+
+/*
+ * Hash table stores an array of pointers to items as well as its size and how full it is
+ */
+typedef	struct 				s_hash_table
+{
+	int 					size;
+	int 					base_size;
+	int 					count;
+	t_hash_item 			**items;
+}							t_hash_table;
+# endif
+
 /*
  * Defines a map:
  *
@@ -84,6 +107,7 @@ typedef struct 				s_map
 	t_room_node 			*start;
 	t_room_node 			*end;
 	struct s_room_node		*rooms_head;
+	t_hash_table 			*rooms_hash;
 }							t_map;
 
 #endif

@@ -19,8 +19,7 @@ SRC = 	main.c \
 		room_utils.c \
 		parse_rooms.c \
 		parse_links.c \
-		links_utils.c \
-		hash_test.c
+		links_utils.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

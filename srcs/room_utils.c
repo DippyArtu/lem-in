@@ -55,6 +55,7 @@ int 						get_room_coordinate(char **line, t_map *map)
 	return coord;
 }
 
+//TODO rewrite this with hashes
 void 						record_room(t_map *map, t_room_node *new_room, int flag)
 {
 	struct s_room_node 		*tmp;

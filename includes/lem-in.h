@@ -14,14 +14,9 @@
 # include "stdio.h"
 # include "ctype.h"
 
-# include <hash_table.h>
 # include <libft.h>
-# include <map_structs.h>
 # include <errors.h>
-
-//---------------------------------------------------------------------------------------------------------------------- hash_table.c
-void 						test_hash(void);
-
+# include <hash_table.h>																								//map_structs.h included in hash_table.h
 
 
 //---------------------------------------------------------------------------------------------------------------------- errors.c

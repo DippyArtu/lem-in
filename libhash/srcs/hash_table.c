@@ -15,7 +15,7 @@
 //-------------------//
 
 // Creates a new hash item
-static t_hash_item 			*ht_new_item(const char *key, const char *value)
+static t_hash_item 			*ht_new_item(const char *key, t_room_node *value)
 {
 	t_hash_item 			*h_item;
 
@@ -25,7 +25,7 @@ static t_hash_item 			*ht_new_item(const char *key, const char *value)
 		abort();
 	}
 	h_item->key = strdup(key);
-	h_item->value = strdup(value);
+	h_item->value = value;
 	return h_item;
 }
 
@@ -54,11 +54,14 @@ t_hash_table 				*ht_new(void)
 	return ht_new_sized(HT_INITIAL_BASE_SIZE);
 }
 
+struct s_room_node 			*free_room(t_room_node *room);
+void 						free_links(t_room_node *room);
 // Deletes hash item
 static void 				ht_del_item(t_hash_item *item)
 {
 	free(item->key);
-	free(item->value);
+	//free(item->value);
+	free_room(item->value);
 	free(item);
 }
 
@@ -195,7 +198,7 @@ static void 				ht_resize_down(t_hash_table *ht)
  * - Insert the pair into the slot and increment the count variable to indicate a new pair has been added
  * - If the load of the table is above 70%, the size of the table is increased
  */
-void 						ht_insert(t_hash_table *ht, const char *key, const char *value)
+void 						ht_insert(t_hash_table *ht, const char *key, t_room_node *value)
 {
 	t_hash_item 			*item;
 	t_hash_item 			*cur_item;
@@ -235,7 +238,7 @@ void 						ht_insert(t_hash_table *ht, const char *key, const char *value)
  * - If it does, return the item's value
  * - If doesn't, return NULL to indicate the the absence of such item
  */
-char 						*ht_search(t_hash_table *ht, const char *key)
+t_room_node					*ht_search(t_hash_table *ht, const char *key)
 {
 	int 					index;
 	int 					i;

@@ -60,6 +60,8 @@ void 						clean_up(t_map *map)
 				tmp = next;
 			}
 		}
+		if (map->rooms_hash)
+			ht_del_table(map->rooms_hash);
 		free(map);
 	}
 }
