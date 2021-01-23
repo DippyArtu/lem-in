@@ -13,45 +13,68 @@
 #define FORWARD_LINK 0
 #define BACKWARD_LINK 1
 
-//TODO after links are done do:
-// - error management
-// - make sure there aren't leaks
+//TODO error management:
+// - check for repeating links and reversed repeating links
+// - check for missing links
+// - simplify insert_link function
 
 void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag)
 {
-	struct s_links			*links_room;
-	struct s_links			*tmp;
+	struct s_links			*l_next;
+	struct s_links			*l_head;
+	struct s_links			*link;
+	struct s_room_node		*prev_room_joined;
 
-	tmp = NULL;
-	links_room = NULL;
-
+	l_next = NULL;
+	link = NULL;
+	prev_room_joined = NULL;
+	l_head = room_curr->links;
 	if (room_curr->links)
 	{
-		if (flag == FORWARD_LINK && !room_curr->links->forward && (room_curr->type != END))
+		if ((room_curr->type == START) && flag == FORWARD_LINK && !room_curr->links->forward)
 		{
 			room_curr->links->forward = room_insert;
 			return;
 		}
-		if (flag == BACKWARD_LINK && !room_curr->links->back && (room_curr->type != START))
+		if ((room_curr->type == END) && flag == BACKWARD_LINK && !room_curr->links->back)
 		{
 			room_curr->links->back = room_insert;
 			return;
 		}
-		tmp = room_curr->links;
-		while (room_curr->links->next)
-			room_curr->links = room_curr->links->next;
+		if ((room_curr->type == NONE) && (!room_curr->links->forward || !room_curr->links->back))
+		{
+			if (flag == FORWARD_LINK)
+				room_curr->links->forward = room_insert;
+			else if (flag == BACKWARD_LINK)
+				room_curr->links->back = room_insert;
+			return;
+		}
+		if (room_curr->type != START)
+			prev_room_joined = l_head->back;
+		link = l_head;
+		l_next = l_head->next;
+		while (l_next != NULL)
+		{
+			link = l_next;
+			l_next = l_next->next;
+		}
 	}
-	links_room = init_link();
-	room_curr->links = links_room;
+	l_next = init_link();
 	if (flag == FORWARD_LINK)
-		links_room->forward = room_insert;
+	{
+		l_next->forward = room_insert;
+		if (l_head != NULL && l_next->back == NULL)
+			l_next->back = prev_room_joined;
+	}
 	else if (flag == BACKWARD_LINK)
-		links_room->back = room_insert;
-	if (tmp)
-		room_curr->links = tmp;
-	else
-		room_curr->links = links_room;
-	tmp = NULL;
+		l_next->back = room_insert;
+	if (l_head != NULL)
+	{
+		link->next = l_next;
+		room_curr->links = l_head;
+	}
+	else if (l_head == NULL)
+		room_curr->links = l_next;
 }
 
 void 						create_link(t_map *map, char *name1, char *name2)
@@ -109,14 +132,9 @@ void 						get_links(char *line, int fd, t_map *map)
 
 
 	//---------------------------------------------------test stuff 2
-	int 					i_rooms;
-	int 					i_links;
 	struct s_links			*link;
 	struct s_links			*l_next;
 	struct s_room_node		*room;
-
-	i_links = 0;
-	i_rooms = 0;
 
 	if (!map->start)
 	{
@@ -138,35 +156,66 @@ void 						get_links(char *line, int fd, t_map *map)
 			l_next = room->links;
 			while (l_next)
 			{
-				i_links++;
 				link = l_next;
 				if (room->type == NONE)
 				{
-					printf("%s  --->  %s --->  %s\n", link->back->room_name, room->room_name, link->forward->room_name);
+					if (link->back)
+						printf("%s  --->  ", link->back->room_name);
+					printf("%s --->  ", room->room_name);
+					if (link->forward)
+						printf("%s\n", link->forward->room_name);
 				}
 				else if (room->type == START)
 				{
 					printf("\nSTART: ");
 					printf("%s  --->  %s\n", room->room_name, link->forward->room_name);
-					printf("________________________\n");
 				}
 				else if (room->type == END)
 				{
-					printf("________________________\n");
 					printf("%s  --->  %s", link->back->room_name, room->room_name);
 					printf(" : END\n");
 				}
 				printf("\n");
-				l_next = link->next;
+				l_next = l_next->next;
 			}
 		}
 		else
+		{
 			printf("Room %s has no links\n\n", room->room_name);
+			abort();
+		}
 		room = room->links->forward;
-		i_rooms++;
 	}
-	printf("%i rooms displayed\n", i_rooms);
-	printf("%i links displayed\n\n", i_links);
+
+	if (room->type == END)
+	{
+		printf("room name: %s\n", room->room_name);
+		if (room->links)
+		{
+			l_next = room->links;
+			while (l_next)
+			{
+				link = l_next;
+				if (room->type == END)
+				{
+					printf("%s  --->  %s", link->back->room_name, room->room_name);
+					printf(" : END\n");
+				}
+				printf("\n");
+				l_next = l_next->next;
+			}
+		}
+		else
+		{
+			printf("Room %s has no links\n\n", room->room_name);
+			abort();
+		}
+	}
+	else
+	{
+		printf("Not the final room!\n\n");
+		abort();
+	}
 	//exit(0);
 	//---------------------------------------------------test stuff 2
 }

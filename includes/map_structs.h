@@ -57,7 +57,6 @@ typedef struct 				s_room_node
 	int 					x;
 	int 					y;
 	t_ant					*ant;
-	struct s_room_node		*room_next;
 
 	struct 					s_links
 	{
@@ -106,7 +105,6 @@ typedef struct 				s_map
 	int 					num_ants;
 	t_room_node 			*start;
 	t_room_node 			*end;
-//	struct s_room_node		*rooms_head;
 	t_hash_table 			*rooms_hash;
 }							t_map;
 

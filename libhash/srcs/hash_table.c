@@ -54,17 +54,21 @@ t_hash_table 				*ht_new(void)
 	return ht_new_sized(HT_INITIAL_BASE_SIZE);
 }
 
+
 struct s_room_node 			*free_room(t_room_node *room);
 void 						free_links(t_room_node *room);
 // Deletes hash item
-static void 				ht_del_item(t_hash_item *item)
+static void 				ht_del_item(t_hash_item *item, int flag)
 {
 	free(item->key);
-	free_room(item->value);
+	if (flag == FULL)
+		free_room(item->value);
+	else if (flag == RESIZE)
+		item->value = NULL;
 	free(item);
 }
 
-void 						ht_del_table(t_hash_table *ht)
+void 						ht_del_table(t_hash_table *ht, int flag)
 {
 	int 					i;
 	t_hash_item 			*item;
@@ -75,7 +79,7 @@ void 						ht_del_table(t_hash_table *ht)
 	{
 		item = ht->items[i];
 		if (item != NULL)
-			ht_del_item(item);
+			ht_del_item(item, flag);
 		i++;
 	}
 	free(ht->items);
@@ -164,7 +168,7 @@ static void 				ht_resize(t_hash_table *ht, const int base_size)
 	ht->items = new_ht->items;
 	new_ht->items = tmp_items;
 
-	ht_del_table(new_ht);
+	ht_del_table(new_ht, RESIZE);
 }
 
 // Increase the size of the hash table
@@ -218,7 +222,7 @@ void 						ht_insert(t_hash_table *ht, const char *key, t_room_node *value)
 		{
 			if (strcmp(cur_item->key, key) == 0)
 			{
-				ht_del_item(cur_item);
+				ht_del_item(cur_item, FULL);
 				ht->items[index] = item;
 				return;
 			}
@@ -286,7 +290,7 @@ void 						ht_delete(t_hash_table *ht, const char *key)
 		{
 			if (strcmp(item->key, key) == 0)
 			{
-				ht_del_item(item);
+				ht_del_item(item, FULL);
 				ht->items[index] = &HT_DELETED_ITEM;
 			}
 		}

@@ -19,6 +19,8 @@
 # include <stdio.h>
 
 # define HT_INITIAL_BASE_SIZE 50																						// Initial size of the hash table
+# define RESIZE 0
+# define FULL 1
 
 # ifndef _HASH_STRUCT_
 # define _HASH_STRUCT_
@@ -46,7 +48,7 @@ typedef	struct 				s_hash_table
 static t_hash_item 			HT_DELETED_ITEM = {NULL, NULL};												// Deleted item marker
 
 t_hash_table 				*ht_new(void);																				// Creates a new hash table
-void 						ht_del_table(t_hash_table *ht);																// Deletes hash table
+void 						ht_del_table(t_hash_table *ht, int flag);													// Deletes hash table
 void 						ht_insert(t_hash_table *ht, const char *key, t_room_node *value);							// Inserts or updates the key-value pair into the table
 t_room_node 				*ht_search(t_hash_table *ht, const char *key);												// Search for a key-value pair in the table
 void 						ht_delete(t_hash_table *ht, const char *key);												// Delete the key-value pair from the table

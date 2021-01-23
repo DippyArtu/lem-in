@@ -32,7 +32,6 @@ t_map 						*init_map(void)
 	map->num_ants = 0;
 	map->start = NULL;
 	map->end = NULL;
-//	map->rooms_head = NULL;
 	map->rooms_hash = ht_new();
 	return map;
 }
@@ -48,7 +47,6 @@ t_room_node 				*init_room(void)
 	room->x = 0;
 	room->y = 0;
 	room->ant = NULL;
-	room->room_next = NULL;
 	room->links = NULL;
 	return room;
 }

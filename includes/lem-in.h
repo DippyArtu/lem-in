@@ -29,7 +29,7 @@ struct s_links				*init_link(void);
 
 //---------------------------------------------------------------------------------------------------------------------- clean_up.c
 void 						clean_up(t_map *map);
-struct s_room_node 			*free_room(t_room_node *room);
+void 						free_room(t_room_node *room);
 void 						free_links(t_room_node *room);
 
 //---------------------------------------------------------------------------------------------------------------------- parse_map.c

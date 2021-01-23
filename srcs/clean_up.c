@@ -12,33 +12,30 @@
 
 void 						free_links(t_room_node *room)
 {
-	struct s_links			*tmp;
 	struct s_links			*next;
+	struct s_links			*links;
 
-	tmp = room->links;
-	next = room->links->next;
-	while (next)
+	links = room->links;
+	while (links)
 	{
-		free(tmp);
-		tmp = next;
-		next = next->next;
+		links->back = NULL;
+		links->forward = NULL;
+		next = links->next;
+		free(links);
+		links = next;
 	}
-	free(tmp);
+	free(links);
 }
 
-struct s_room_node 			*free_room(t_room_node *room)
+void 						free_room(t_room_node *room)
 {
-	struct s_room_node		*next;
-
 	if (room->room_name)
 		free(room->room_name);
 	if (room->ant)
 		free(room->ant);
 	if (room->links)
 		free_links(room);
-	next = room->room_next;
 	free(room);
-	return next;
 }
 
 void 						clean_up(t_map *map)
@@ -46,7 +43,7 @@ void 						clean_up(t_map *map)
 	if (map)
 	{
 		if (map->rooms_hash)
-			ht_del_table(map->rooms_hash);
+			ht_del_table(map->rooms_hash, FULL);
 		free(map);
 	}
 }

@@ -29,7 +29,11 @@
  * Room's name will never start with # or L
 */
 
-//TODO working on links
+//TODO:
+// - rooms & links error management
+// - map validation
+// - display map with OpenGL
+// - solving the map
 
 #include <lem-in.h>
 
