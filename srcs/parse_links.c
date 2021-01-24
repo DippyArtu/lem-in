@@ -15,7 +15,6 @@
 
 //TODO error management:
 // - check for repeating links and reversed repeating links
-// - check for missing links
 // - simplify insert_link function
 
 void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag)
@@ -148,7 +147,7 @@ void 						get_links(char *line, int fd, t_map *map)
 	}
 
 	room = map->start;
-	while (room->type != END)
+	while (room && room->type != END)
 	{
 		printf("room name: %s\n", room->room_name);
 		if (room->links)
@@ -159,20 +158,22 @@ void 						get_links(char *line, int fd, t_map *map)
 				link = l_next;
 				if (room->type == NONE)
 				{
-					if (link->back)
+					if (link && link->back)
 						printf("%s  --->  ", link->back->room_name);
 					printf("%s --->  ", room->room_name);
-					if (link->forward)
+					if (link && link->forward)
 						printf("%s\n", link->forward->room_name);
 				}
 				else if (room->type == START)
 				{
 					printf("\nSTART: ");
-					printf("%s  --->  %s\n", room->room_name, link->forward->room_name);
+					if (link && link->forward)
+						printf("%s  --->  %s\n", room->room_name, link->forward->room_name);
 				}
 				else if (room->type == END)
 				{
-					printf("%s  --->  %s", link->back->room_name, room->room_name);
+					if (link && link->back)
+						printf("%s  --->  %s", link->back->room_name, room->room_name);
 					printf(" : END\n");
 				}
 				printf("\n");
@@ -187,7 +188,7 @@ void 						get_links(char *line, int fd, t_map *map)
 		room = room->links->forward;
 	}
 
-	if (room->type == END)
+	if (room && room->type == END)
 	{
 		printf("room name: %s\n", room->room_name);
 		if (room->links)
@@ -198,7 +199,8 @@ void 						get_links(char *line, int fd, t_map *map)
 				link = l_next;
 				if (room->type == END)
 				{
-					printf("%s  --->  %s", link->back->room_name, room->room_name);
+					if (link && link->back)
+						printf("%s  --->  %s", link->back->room_name, room->room_name);
 					printf(" : END\n");
 				}
 				printf("\n");
@@ -208,13 +210,13 @@ void 						get_links(char *line, int fd, t_map *map)
 		else
 		{
 			printf("Room %s has no links\n\n", room->room_name);
-			abort();
+			exit(1);
 		}
 	}
-	else
+	else if (!room)
 	{
-		printf("Not the final room!\n\n");
-		abort();
+		printf("Not the final room!\n\n"); // wrong links error
+		exit(1);
 	}
 	//exit(0);
 	//---------------------------------------------------test stuff 2

@@ -49,6 +49,8 @@ void 						error(int errno, t_map *map)
 		printf(NO_LINK_ROOM);
 	else if (errno == DUPLICATE_NAME_ERR)
 		printf(DUPLICATE_NAME);
+	else if (errno == DUPLICATE_COORD_ERR)
+		printf(DUPLICATE_COORD);
 	clean_up(map);
 	exit(1);
 }

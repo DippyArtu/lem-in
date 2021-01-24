@@ -22,20 +22,6 @@ struct s_links				*init_link(void)
 	return link;
 }
 
-t_map 						*init_map(void)
-{
-	t_map 					*map;
-
-	if (!(map = (t_map *)malloc(sizeof(t_map))))
-		error(MALLOC_FAIL_ERR, NULL);
-	map->num_steps = 0;
-	map->num_ants = 0;
-	map->start = NULL;
-	map->end = NULL;
-	map->rooms_hash = ht_new();
-	return map;
-}
-
 t_room_node 				*init_room(void)
 {
 	t_room_node 			*room;
@@ -49,4 +35,21 @@ t_room_node 				*init_room(void)
 	room->ant = NULL;
 	room->links = NULL;
 	return room;
+}
+
+t_map 						*init_map(void)
+{
+	t_map 					*map;
+
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
+		error(MALLOC_FAIL_ERR, NULL);
+	map->num_steps = 0;
+	map->num_ants = 0;
+	map->start = NULL;
+	map->end = NULL;
+	map->rooms_hash = ht_new();
+	map->coordinates = ht_new();
+	map->dummy = init_room();
+	map->dummy->room_name = strdup("dummy room");
+	return map;
 }

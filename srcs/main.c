@@ -10,6 +10,10 @@
 
 #include <lem-in.h>
 
+//TODO:
+// - finish map stuff
+// - solve map
+
 int							main(int argc, char **argv)
 {
 	t_map 					*map;

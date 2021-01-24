@@ -96,8 +96,9 @@ typedef	struct 				s_hash_table
  * - *num_ants* defines how many ants there are in a map
  * - *start* points to the beginning of the map
  * - *end* points to the end of the map
- * - *rooms_head* is used to store the first room of the rooms list before the link
- * structure is processed
+ * - *dummy* is a dummy room struct used as a flag for existing coordinates
+ * - *coordinates* is used to make sure no duplicate coordinates are passed
+ * - *rooms_hash* is used to store the rooms read from the map file
  */
 typedef struct 				s_map
 {
@@ -105,6 +106,9 @@ typedef struct 				s_map
 	int 					num_ants;
 	t_room_node 			*start;
 	t_room_node 			*end;
+
+	t_room_node 			*dummy;
+	t_hash_table 			*coordinates;
 	t_hash_table 			*rooms_hash;
 }							t_map;
 
