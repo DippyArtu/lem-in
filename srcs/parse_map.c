@@ -50,6 +50,7 @@ t_map 						*get_map(int fd)
 
 	map = init_map();
 	line = get_rooms(fd, map);
+
 	if (!map->start)
 		error(NO_START_ERR, map);
 	if (!map->end)
@@ -60,6 +61,7 @@ t_map 						*get_map(int fd)
 		free_room(map->dummy);
 		map->coordinates = NULL;
 	}
+
 	get_links(line, fd, map);
 
 	return map;

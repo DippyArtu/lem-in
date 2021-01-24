@@ -95,6 +95,52 @@ void 						create_link(t_map *map, char *name1, char *name2)
 	insert_link(room2, room1, BACKWARD_LINK);
 }
 
+//TODO write validation function
+// - check room1 and room2 vs link1 && link2
+// - move this function to links_utils.c
+// - write insertion algo
+void 						validate_link(char *room1, char *room2, t_map *map)
+{
+	char 					*val1;
+	char 					*val2;
+	struct s_link_valid		*validator;
+	struct s_link_valid		*next;
+
+	printf("\nnot there yet cowboy hold ur horses\n\n");
+	exit(0);
+
+	validator = map->links_val;
+	next = validator->next;
+	while (next)
+	{
+		val1 = validator->link1;
+		val2 = validator->link2;
+		if (ft_strcmp(room1, val1) == 1)																				//link duplicate (a-b ; a-b)
+		{
+			if (ft_strcmp(room2, val2) == 1)
+				error(DUPLICATE_LINK_ERR, map);
+		}
+		if (ft_strcmp(room1, val2) == 1)																				//reverse link duplicate (a-b ; b-a)
+		{
+			if (ft_strcmp(room2, val1))
+				error(DUPLICATE_LINK_ERR, map);
+		}
+		validator = next;
+		next = validator->next;
+	}
+	if (!validator)
+	{
+		validator = init_l_validator();
+		validator->link1 = strdup(room1);
+		validator->link2 = strdup(room2);
+	}
+
+
+
+//	printf("1: %s, 2: %s\n", validator->link1, validator->link2);
+//	exit(0);
+}
+
 void 						process_link(char *line, t_map *map)
 {
 	char 					*name1;
@@ -109,6 +155,8 @@ void 						process_link(char *line, t_map *map)
 	name2 = get_link_name(&line, map);
 	free(line_tmp);
 
+	validate_link(name1, name2, map);
+
 	create_link(map, name1, name2);
 
 	free(name1);
@@ -118,6 +166,7 @@ void 						process_link(char *line, t_map *map)
 void 						get_links(char *line, int fd, t_map *map)
 {
 	int 					err;
+
 
 	err = 0;
 	process_link(line, map);

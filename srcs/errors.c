@@ -51,6 +51,8 @@ void 						error(int errno, t_map *map)
 		printf(DUPLICATE_NAME);
 	else if (errno == DUPLICATE_COORD_ERR)
 		printf(DUPLICATE_COORD);
+	else if (errno == DUPLICATE_LINK_ERR)
+		printf(DUPLICATE_LINK);
 	clean_up(map);
 	exit(1);
 }

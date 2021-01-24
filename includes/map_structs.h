@@ -90,6 +90,18 @@ typedef	struct 				s_hash_table
 # endif
 
 /*
+ * Used for link validation
+ * *links* stores 2 links being processed
+ * *next* points to new instance of structure
+ */
+typedef struct 				s_link_valid
+{
+	char 					*link1;
+	char 					*link2;
+	struct s_link_valid		*next;
+}							t_link_valid;
+
+/*
  * Defines a map:
  *
  * - *num_steps* keeps track of how many steps taken in the solution of the map
@@ -99,6 +111,7 @@ typedef	struct 				s_hash_table
  * - *dummy* is a dummy room struct used as a flag for existing coordinates
  * - *coordinates* is used to make sure no duplicate coordinates are passed
  * - *rooms_hash* is used to store the rooms read from the map file
+ * - *links_val* points to list for link validation
  */
 typedef struct 				s_map
 {
@@ -110,6 +123,8 @@ typedef struct 				s_map
 	t_room_node 			*dummy;
 	t_hash_table 			*coordinates;
 	t_hash_table 			*rooms_hash;
+
+	struct s_link_valid		*links_val;
 }							t_map;
 
 #endif

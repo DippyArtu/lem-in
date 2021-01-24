@@ -46,6 +46,23 @@ void 						free_room(t_room_node *room)
 	room = NULL;
 }
 
+void 						free_link_validator(struct s_link_valid *links)
+{
+	struct s_link_valid		*tmp;
+
+	while (links)
+	{
+		tmp = links->next;
+		if (links->link1)
+			free(links->link1);
+		if (links->link2)
+			free(links->link2);
+		free(links);
+		links = tmp;
+	}
+	links = NULL;
+}
+
 void 						clean_up(t_map *map)
 {
 	if (map)
@@ -58,6 +75,8 @@ void 						clean_up(t_map *map)
 			ht_del_table(map->coordinates, RESIZE);
 			free_room(map->dummy);
 		}
+		if (map->links_val)
+			free_link_validator(map->links_val);
 		free(map);
 	}
 }

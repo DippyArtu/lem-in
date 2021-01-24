@@ -37,6 +37,19 @@ t_room_node 				*init_room(void)
 	return room;
 }
 
+struct s_link_valid			*init_l_validator(void)
+{
+	struct s_link_valid		*validator;
+
+	if (!(validator = (struct s_link_valid *)malloc(sizeof(struct s_link_valid))))
+		error(MALLOC_FAIL_ERR, NULL);
+
+	validator->link1 = NULL;
+	validator->link2 = NULL;
+	validator->next = NULL;
+	return validator;
+}
+
 t_map 						*init_map(void)
 {
 	t_map 					*map;
@@ -48,8 +61,10 @@ t_map 						*init_map(void)
 	map->start = NULL;
 	map->end = NULL;
 	map->rooms_hash = ht_new();
+
 	map->coordinates = ht_new();
 	map->dummy = init_room();
 	map->dummy->room_name = strdup("dummy room");
+	map->links_val = NULL;
 	return map;
 }

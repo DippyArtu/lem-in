@@ -26,6 +26,7 @@ void 						error(int errno, t_map *map);
 t_map 						*init_map(void);
 t_room_node 				*init_room(void);
 struct s_links				*init_link(void);
+struct s_link_valid			*init_l_validator(void);
 
 //---------------------------------------------------------------------------------------------------------------------- clean_up.c
 void 						clean_up(t_map *map);
@@ -54,5 +55,6 @@ void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_i
 
 //---------------------------------------------------------------------------------------------------------------------- link_utils.c
 char 						*get_link_name(char **line, t_map *map);
+void 						validate_link(char *room1, char *room2, t_map *map);
 
 #endif
