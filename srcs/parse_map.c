@@ -36,11 +36,6 @@
  * a link of 2-1 will be considered an error
  */
 
-//TODO:
-// - rooms & links error management
-// - map validation
-// - display map with OpenGL
-
 #include <lem-in.h>
 
 t_map 						*get_map(int fd)
@@ -50,7 +45,6 @@ t_map 						*get_map(int fd)
 
 	map = init_map();
 	line = get_rooms(fd, map);
-
 	if (!map->start)
 		error(NO_START_ERR, map);
 	if (!map->end)
@@ -61,8 +55,6 @@ t_map 						*get_map(int fd)
 		free_room(map->dummy);
 		map->coordinates = NULL;
 	}
-
 	get_links(line, fd, map);
-
 	return map;
 }

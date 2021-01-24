@@ -31,3 +31,42 @@ char 						*get_link_name(char **line, t_map *map)
 	}
 	return name;
 }
+
+void 						validate_link(char *room1, char *room2, t_map *map)
+{
+	char 					*val1;
+	char 					*val2;
+	struct s_link_valid		*validator;
+	struct s_link_valid		*next;
+
+	if (!map->links_val)
+	{
+		map->links_val = init_l_validator();
+		map->links_val->link1 = strdup(room1);
+		map->links_val->link2 = strdup(room2);
+		return;
+	}
+	validator = map->links_val;
+	next = validator->next;
+	while (next)
+	{
+		val1 = validator->link1;
+		val2 = validator->link2;
+		if (ft_strcmp(room1, val1) == 1)																				//link duplicate (a-b ; a-b)
+		{
+			if (ft_strcmp(room2, val2) == 1)
+				error(DUPLICATE_LINK_ERR, map);
+		}
+		if (ft_strcmp(room1, val2) == 1)																				//reverse link duplicate (a-b ; b-a)
+		{
+			if (ft_strcmp(room2, val1))
+				error(DUPLICATE_LINK_ERR, map);
+		}
+		validator = next;
+		next = validator->next;
+	}
+	next = init_l_validator();
+	next->link1 = strdup(room1);
+	next->link2 = strdup(room2);
+	validator->next = next;
+}

@@ -32,6 +32,7 @@ struct s_link_valid			*init_l_validator(void);
 void 						clean_up(t_map *map);
 void 						free_room(t_room_node *room);
 void 						free_links(t_room_node *room);
+void 						free_link_validator(struct s_link_valid *links);
 
 //---------------------------------------------------------------------------------------------------------------------- parse_map.c
 t_map 						*get_map(int fd);
