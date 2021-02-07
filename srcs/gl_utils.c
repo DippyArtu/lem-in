@@ -10,8 +10,6 @@
 
 #include "lem-in.h"
 
-//TODO let's put those cubes here for now, build gl infrastructure this way
-
 void 						framebuffer_size_callback(GLFWwindow *window, int width, int height) //---------------------For window resizing
 {
 	int 				i = 0;
@@ -25,33 +23,6 @@ void 						processInput(GLFWwindow *window) //----------------------------------
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
-GLuint 						createShader(GLenum type, char **src) //----------------------------------------------------Shader compiler helper function
-{
-	char 				buffer[512];
-	GLint 				status;
-	GLuint 				shader;
-
-	bzero(buffer, 512);
-	shader = glCreateShader(type);
-	glShaderSource(shader, 1, (const GLchar * const *)src, NULL);
-	glCompileShader(shader);
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &status); //---------------------------------------------------------------Checking the compilation status
-	if (status != GL_TRUE)
-	{
-		glGetShaderInfoLog(shader, 512, NULL, buffer); //---------------------------------------------------------------Writes compilation log (first 512 chars) into buffer string
-		if (type == GL_VERTEX_SHADER)
-			printf("Vertex ");
-		else if (type == GL_FRAGMENT_SHADER)
-			printf("Fragment ");
-		else if (type == GL_GEOMETRY_SHADER)
-			printf("Geometry ");
-		printf("shader comp failed:\n");
-		printf("%s\n", buffer); //--------------------------------------------------------------------------------------Displays log
-		exit(1);
-	}
-	return shader;
 }
 
 void 						init_gl(t_map *map)
@@ -77,4 +48,12 @@ void 						init_gl(t_map *map)
 	}
 	glfwSetFramebufferSizeCallback(map->gl->window, framebuffer_size_callback);
 	glEnable(GL_DEPTH_TEST); //-----------------------------------------------------------------------------------------Enables depth testing
+}
+
+void 						terminate_gl(t_gl *gl)
+{
+	glDeleteVertexArrays(1, &gl->vao);
+	glDeleteBuffers(1, &gl->vbo);
+	glDeleteProgram(gl->shaderProgram);
+	glfwTerminate();
 }

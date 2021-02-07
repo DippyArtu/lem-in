@@ -65,8 +65,21 @@ void 						validate_link(char *room1, char *room2, t_map *map);
 
 //---------------------------------------------------------------------------------------------------------------------- gl_utils.c
 void 						init_gl(t_map *map);
-GLuint 						createShader(GLenum type, char **src);
 void 						processInput(GLFWwindow *window);
 void 						framebuffer_size_callback(GLFWwindow *window, int width, int height);
+void 						terminate_gl(t_gl *gl);
+
+//---------------------------------------------------------------------------------------------------------------------- gl_build.c
+GLuint 						createShader(GLenum type, char **src);
+void 						createProgram(t_gl *gl);
+char						*readShaderSource(char *src_name);
+void 						makeShaderProgram(t_gl *gl);
+
+//---------------------------------------------------------------------------------------------------------------------- gl_buffers.c
+void 						createVBO(t_gl *gl, GLfloat *points);
+void						createVAO(t_gl *gl);
+
+//---------------------------------------------------------------------------------------------------------------------- graphics.c
+void 						run_visuals(t_map *map);
 
 #endif

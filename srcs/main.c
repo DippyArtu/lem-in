@@ -54,6 +54,8 @@ int							main(int argc, char **argv)
 	test(map);
 	printf("rooms: %i\n", map->num_rooms);
 
+	run_visuals(map);
+
 	clean_up(map);
 
 	return 0;

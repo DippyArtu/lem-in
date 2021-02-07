@@ -57,6 +57,12 @@ t_gl						*init_gl_struct(void)
 	if (!(gl = (t_gl *)malloc(sizeof(t_gl))))
 		error(MALLOC_FAIL_ERR, NULL);
 	gl->window = NULL;
+	gl->shaderProgram = 0;
+	gl->vertexShader = 0;
+	gl->fragmentShader = 0;
+	gl->geometryShader = 0;
+	gl->vbo = 0;
+	gl->vao = 0;
 	return gl;
 }
 

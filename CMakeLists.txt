@@ -93,6 +93,10 @@ add_executable(lem_in
         libhash/srcs/prime.c
         libhash/Makefile
 
+        shaders/vertex.shader
+        shaders/geometry.shader
+        shaders/fragment.shader
+
         includes/lem-in.h
         includes/map_structs.h
         includes/errors.h
@@ -108,6 +112,9 @@ add_executable(lem_in
         srcs/parse_rooms.c
         srcs/parse_links.c
         srcs/links_utils.c
-        srcs/gl_utils.c)
+        srcs/gl_utils.c
+        srcs/gl_build.c
+        srcs/graphics.c
+        srcs/gl_buffers.c)
 
 target_link_libraries(lem_in ${GLFW_LIB} ${GLEW_LIB})

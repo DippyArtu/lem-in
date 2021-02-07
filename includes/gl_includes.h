@@ -17,12 +17,21 @@
 # include "stb_image.h"
 # include <cglm/cglm.h>
 
+//----------------------------------------------------------------------------------------------------------------------Window dimensions
 # define SRC_WIDTH 800
 # define SRC_HEIGHT 600
 
 typedef struct 				s_gl
 {
-	GLFWwindow 				*window;
+	GLFWwindow 				*window; //---------------------------------------------------------------------------------GL context window
+
+	GLuint 					vertexShader;
+	GLuint 					fragmentShader;
+	GLuint 					geometryShader;
+	GLuint					shaderProgram;
+
+	GLuint 					vbo;
+	GLuint 					vao;
 }							t_gl;
 
 #endif

@@ -20,7 +20,10 @@ SRC = 	main.c \
 		parse_rooms.c \
 		parse_links.c \
 		links_utils.c \
-		gl_utils.c
+		gl_utils.c \
+		gl_build.c \
+		graphics.c \
+		gl_buffers.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
