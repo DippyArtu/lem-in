@@ -63,6 +63,11 @@ void 						free_link_validator(struct s_link_valid *links)
 	links = NULL;
 }
 
+void 						clean_gl_struct(t_gl *gl)
+{
+	free(gl);
+}
+
 void 						clean_up(t_map *map)
 {
 	if (map)
@@ -77,6 +82,8 @@ void 						clean_up(t_map *map)
 		}
 		if (map->links_val)
 			free_link_validator(map->links_val);
+		if (map->gl)
+			clean_gl_struct(map->gl);
 		free(map);
 	}
 }

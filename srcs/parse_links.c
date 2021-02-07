@@ -13,9 +13,6 @@
 #define FORWARD_LINK 0
 #define BACKWARD_LINK 1
 
-//TODO:
-// - simplify insert_link function
-
 void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag)
 {
 	struct s_links			*l_next;

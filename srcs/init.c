@@ -50,7 +50,17 @@ struct s_link_valid			*init_l_validator(void)
 	return validator;
 }
 
-t_map 						*init_map(void)
+t_gl						*init_gl_struct(void)
+{
+	t_gl					*gl;
+
+	if (!(gl = (t_gl *)malloc(sizeof(t_gl))))
+		error(MALLOC_FAIL_ERR, NULL);
+	gl->window = NULL;
+	return gl;
+}
+
+t_map 						*init_map(int mode)
 {
 	t_map 					*map;
 
@@ -58,6 +68,7 @@ t_map 						*init_map(void)
 		error(MALLOC_FAIL_ERR, NULL);
 	map->num_steps = 0;
 	map->num_ants = 0;
+	map->num_rooms = 0;
 	map->start = NULL;
 	map->end = NULL;
 	map->rooms_hash = ht_new();
@@ -66,5 +77,9 @@ t_map 						*init_map(void)
 	map->dummy = init_room();
 	map->dummy->room_name = strdup("dummy room");
 	map->links_val = NULL;
+	map->gl = NULL;
+
+	if (mode == GRAPHICS_ON)
+		map->gl = init_gl_struct();
 	return map;
 }

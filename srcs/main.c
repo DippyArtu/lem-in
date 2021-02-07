@@ -8,7 +8,57 @@
 /*                                     */
 /* *********************************** */
 
+/*
+ * Prereqs:
+ * - OpenGL 3.2+
+ * - GLFW
+ * - GLEW
+ * - CGLM | docs: https://cglm.readthedocs.io/en/latest/
+ */
+
 #include <lem-in.h>
+
+void 						test(t_map *map);
+
+//TODO:
+// - finish map stuff // - map validation ? mb do it on solving
+// - visualize map
+// - solve map
+int							main(int argc, char **argv)
+{
+	t_map 					*map;
+	int 					fd;
+
+	fd = 0;
+	map = NULL;
+
+	if (argc < 2 || argc > 3)
+		error(ARG_NUM_ERR, NULL);
+	if (argc == 3 && (ft_strcmp(argv[2], "-t") != 1))
+		error(ARG_NUM_ERR, NULL);
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
+		error(OPEN_FILE_ERR, NULL);
+
+	if (argc == 2)
+	{
+		map = init_map(GRAPHICS_ON);
+		init_gl(map);
+	}
+	else if (argc == 3)
+		map = init_map(GRAPHICS_OFF);
+
+	//get map
+	get_map(fd, map);
+	close(fd);
+
+	test(map);
+	printf("rooms: %i\n", map->num_rooms);
+
+	clean_up(map);
+
+	return 0;
+}
+
 
 void 						test(t_map *map)
 {
@@ -105,33 +155,4 @@ void 						test(t_map *map)
 	printf("End room name: %s\n", map->end->room_name);
 	//exit(0);
 	//---------------------------------------------------test stuff 2
-}
-
-//TODO:
-// - finish map stuff // - map validation ? mb do it on solving
-// - visualize map
-// - solve map
-int							main(int argc, char **argv)
-{
-	t_map 					*map;
-	int 					fd;
-
-	fd = 0;
-	map = NULL;
-
-	if (argc != 2)
-		error(ARG_NUM_ERR, NULL);
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		error(OPEN_FILE_ERR, NULL);
-
-	//get map
-	map = get_map(fd);
-
-	test(map);
-
-	close(fd);
-
-	clean_up(map);
-
-	return 0;
 }

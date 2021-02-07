@@ -19,7 +19,8 @@ SRC = 	main.c \
 		room_utils.c \
 		parse_rooms.c \
 		parse_links.c \
-		links_utils.c
+		links_utils.c \
+		gl_utils.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
@@ -31,7 +32,9 @@ INCS = $(addprefix $(INC_DIR), $(INC))
 INC_DIR = ./includes/
 INC = 	lem-in.h \
 		map_structs.h \
-		errors.h
+		errors.h \
+		gl_includes.h \
+		stb_image.h
 
 LIB_OBJS = $(addprefix $(LIB_OBJ_DIR), $(LIB_OBJ))
 LIB_OBJ = *.o
@@ -50,11 +53,12 @@ HASH_INC_DIR = ./libhash/includes/
 HASH_INC = hash_table.h prime.h
 
 FLAGS = -Werror -Wextra -Wall -I$(INC_DIR) -I$(LIB_INC_DIR) -I$(HASH_INC_DIR)
+GL_LIBS = -framework OpenGL -I/usr/local/include -lGLEW -lglfw
 
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(LIB_OBJS) $(HASH_OBJS) $(OBJS)
-		clang $(OBJS) ./libft/libft.a ./libhash/libhash.a -o $(NAME)
+		clang $(OBJS) ./libft/libft.a ./libhash/libhash.a -o $(NAME) $(GL_LIBS)
 
 $(OBJ_DIR):
 		mkdir -p $@

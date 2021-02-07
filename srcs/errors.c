@@ -16,6 +16,7 @@ void 						error(int errno, t_map *map)
 	{
 		printf(ARG_NUM);
 		printf(USAGE);
+		printf(ARG_FLAG);
 	}
 	else if (errno == OPEN_FILE_ERR)
 		printf(OPEN_FILE);

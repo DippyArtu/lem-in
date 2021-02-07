@@ -11,6 +11,8 @@
 #ifndef _LEM_IN_MAP_STRUCTS_H_
 # define _LEM_IN_MAP_STRUCTS_H_
 
+# include "gl_includes.h"
+
 /*
  * Defines whether the room is a start, end or neither in a map
  */
@@ -117,6 +119,7 @@ typedef struct 				s_map
 {
 	int 					num_steps;
 	int 					num_ants;
+	int						num_rooms;
 	t_room_node 			*start;
 	t_room_node 			*end;
 
@@ -125,6 +128,8 @@ typedef struct 				s_map
 	t_hash_table 			*rooms_hash;
 
 	struct s_link_valid		*links_val;
+
+	t_gl					*gl;
 }							t_map;
 
 #endif

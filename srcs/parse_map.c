@@ -38,12 +38,10 @@
 
 #include <lem-in.h>
 
-t_map 						*get_map(int fd)
+void 						get_map(int fd, t_map *map)
 {
-	t_map 					*map;
 	char 					*line;
 
-	map = init_map();
 	line = get_rooms(fd, map);
 	if (!map->start)
 		error(NO_START_ERR, map);
@@ -56,5 +54,4 @@ t_map 						*get_map(int fd)
 		map->coordinates = NULL;
 	}
 	get_links(line, fd, map);
-	return map;
 }

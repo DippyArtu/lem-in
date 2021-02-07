@@ -4,8 +4,14 @@ project(lem_in)
 set(CMAKE_C_STANDARD 99)
 
 include_directories(includes)
+include_directories(shaders)
 include_directories(libft/includes)
 include_directories(libhash/includes)
+include_directories(/usr/local/include)
+link_directories(/usr/local/lib)
+
+find_library(GLFW_LIB glfw HINTS /usr/local/lib)
+find_library(GLEW_LIB glew HINTS /usr/local/lib)
 
 add_executable(lem_in
         libft/includes/get_next_line.h
@@ -90,6 +96,9 @@ add_executable(lem_in
         includes/lem-in.h
         includes/map_structs.h
         includes/errors.h
+        includes/gl_includes.h
+        includes/stb_image.h
+
         srcs/main.c
         srcs/parse_map.c
         srcs/init.c
@@ -99,4 +108,6 @@ add_executable(lem_in
         srcs/parse_rooms.c
         srcs/parse_links.c
         srcs/links_utils.c
-        srcs/hash_test.c)
+        srcs/gl_utils.c)
+
+target_link_libraries(lem_in ${GLFW_LIB} ${GLEW_LIB})

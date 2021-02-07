@@ -32,6 +32,7 @@
 # define DUPLICATE_LINK_ERR 19
 
 # define USAGE "Usage: ./lem_in *map_file*\n"
+# define ARG_FLAG "Flags: Use -t for text mode\n"
 # define ARG_NUM "ERROR: Invalid number of arguments\n"
 # define MALLOC_FAIL "ERROR: Could not allocate memory\n"
 
