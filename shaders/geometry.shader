@@ -8,7 +8,7 @@
 /*                                     */
 /* *********************************** */
 
-#version 330 core
+#version 150 core
 
 layout(points) in;
 layout(line_strip, max_vertices = 16) out;

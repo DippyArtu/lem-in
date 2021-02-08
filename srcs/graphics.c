@@ -10,7 +10,6 @@
 
 #include "lem-in.h"
 
-//TODO rly idk what but yeah deal with it
 void 						run_visuals(t_map *map)
 {
 	init_gl(map);
@@ -27,7 +26,9 @@ void 						run_visuals(t_map *map)
 		0.45f, -0.45f,  0.45f, 1.0f, 0.5f, 0.5f,
 		-0.45f, -0.45f,  0.45f, 0.5f, 1.0f, 0.5f
 	};
-	createVBO(map->gl, points);
+	GLsizeiptr 			size = sizeof(points);
+
+	createVBO(map->gl, size, points);
 	createVAO(map->gl);
 
 

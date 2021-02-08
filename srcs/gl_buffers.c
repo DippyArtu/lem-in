@@ -10,11 +10,11 @@
 
 #include "lem-in.h"
 
-void 						createVBO(t_gl *gl, GLfloat *points)
+void 						createVBO(t_gl *gl, GLsizeiptr size, GLfloat *points)
 {
 	glGenBuffers(1, &gl->vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, gl->vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(*points), &points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, points, GL_STATIC_DRAW);
 }
 
 void						createVAO(t_gl *gl)

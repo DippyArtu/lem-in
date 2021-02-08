@@ -76,7 +76,7 @@ char						*readShaderSource(char *src_name);
 void 						makeShaderProgram(t_gl *gl);
 
 //---------------------------------------------------------------------------------------------------------------------- gl_buffers.c
-void 						createVBO(t_gl *gl, GLfloat *points);
+void 						createVBO(t_gl *gl, GLsizeiptr size, GLfloat *points);
 void						createVAO(t_gl *gl);
 
 //---------------------------------------------------------------------------------------------------------------------- graphics.c

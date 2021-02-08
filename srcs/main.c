@@ -40,10 +40,7 @@ int							main(int argc, char **argv)
 		error(OPEN_FILE_ERR, NULL);
 
 	if (argc == 2)
-	{
 		map = init_map(GRAPHICS_ON);
-		init_gl(map);
-	}
 	else if (argc == 3)
 		map = init_map(GRAPHICS_OFF);
 
