@@ -55,8 +55,8 @@ void 						record_room(t_map *map, t_room_node *new_room, int flag);
 
 //---------------------------------------------------------------------------------------------------------------------- parse_links.c
 void 						get_links(char *line, int fd, t_map *map);
-void 						process_link(char *line, t_map *map);
-void 						create_link(t_map *map, char *name1, char *name2);
+void 						process_link(char *line, t_map *map, t_hash_table *room_points_ht);
+void 						create_link(t_map *map, char *name1, char *name2, t_hash_table *room_points_ht);
 void 						insert_link(struct s_room_node *room_curr, struct s_room_node *room_insert, int flag);
 
 //---------------------------------------------------------------------------------------------------------------------- link_utils.c
@@ -78,6 +78,10 @@ void 						makeShaderProgram(t_gl *gl);
 //---------------------------------------------------------------------------------------------------------------------- gl_buffers.c
 void 						createVBO(t_gl *gl, GLsizeiptr size, GLfloat *points);
 void						createVAO(t_gl *gl);
+
+//---------------------------------------------------------------------------------------------------------------------- gl_points.c
+void 						gl_init_points(t_map *map);
+void 						gl_insert_points(t_map *map, t_room_node *room, t_hash_table *table);
 
 //---------------------------------------------------------------------------------------------------------------------- graphics.c
 void 						run_visuals(t_map *map);

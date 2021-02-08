@@ -115,6 +115,7 @@ add_executable(lem_in
         srcs/gl_utils.c
         srcs/gl_build.c
         srcs/graphics.c
-        srcs/gl_buffers.c)
+        srcs/gl_buffers.c
+        srcs/gl_points.c)
 
 target_link_libraries(lem_in ${GLFW_LIB} ${GLEW_LIB})

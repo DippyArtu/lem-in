@@ -92,31 +92,31 @@ void 						makeShaderProgram(t_gl *gl)
 {
 	char 					*vertex_source;
 	char 					*fragment_source;
-	char					*geometry_source;
+	//char					*geometry_source;
 	char 					**vertex_s;
 	char 					**fragment_s;
-	char 					**geometry_s;
+	//char 					**geometry_s;
 
 	vertex_s = NULL;
 	fragment_s = NULL;
-	geometry_s = NULL;
+	//geometry_s = NULL;
 
 	vertex_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/vertex.shader");
 	vertex_s = &vertex_source;
 	fragment_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/fragment.shader");
 	fragment_s = &fragment_source;
-	geometry_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/geometry.shader");
-	geometry_s = &geometry_source;
+//	geometry_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/geometry.shader");
+//	geometry_s = &geometry_source;
 
 	gl->vertexShader = createShader(GL_VERTEX_SHADER, vertex_s);
 	gl->fragmentShader = createShader(GL_FRAGMENT_SHADER, fragment_s);
-	gl->geometryShader = createShader(GL_GEOMETRY_SHADER, geometry_s);
+	//gl->geometryShader = createShader(GL_GEOMETRY_SHADER, geometry_s);
 
 	createProgram(gl);
 	vertex_s = NULL;
 	fragment_s = NULL;
-	geometry_s = NULL;
+	//geometry_s = NULL;
 	free(vertex_source);
 	free(fragment_source);
-	free(geometry_source);
+	//free(geometry_source);
 }

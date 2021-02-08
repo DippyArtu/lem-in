@@ -32,6 +32,8 @@ typedef struct 				s_gl
 
 	GLuint 					vbo;
 	GLuint 					vao;
+
+	GLfloat					*points;
 }							t_gl;
 
 #endif

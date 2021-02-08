@@ -10,6 +10,7 @@
 
 #include "lem-in.h"
 
+//TODO coordinates are stored at map->gl
 void 						run_visuals(t_map *map)
 {
 	init_gl(map);

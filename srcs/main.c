@@ -51,7 +51,7 @@ int							main(int argc, char **argv)
 	test(map);
 	printf("rooms: %i\n", map->num_rooms);
 
-	run_visuals(map);
+	//run_visuals(map);
 
 	clean_up(map);
 
@@ -152,6 +152,17 @@ void 						test(t_map *map)
 	printf("num ants: %i\n\n", map->num_ants);
 	printf("\nStart room name: %s\n", map->start->room_name);
 	printf("End room name: %s\n", map->end->room_name);
-	//exit(0);
+
+	int 				size = map->num_rooms * 2;
+	int					i = 0;
+
+	//----------------------------------------------------points test
+	while (i < size)
+	{
+		printf("%f	", map->gl->points[i]);
+		i++;
+		printf("%f\n", map->gl->points[i]);
+		i++;
+	}
 	//---------------------------------------------------test stuff 2
 }
