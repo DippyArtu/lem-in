@@ -87,7 +87,7 @@ void						gl_set_attrib_ptr(t_gl *gl, char *attrib_name, GLint num_vals, GLboole
 
 //---------------------------------------------------------------------------------------------------------------------- gl_draw.c
 void 						run_graphics(t_map *map);
-void 						gl_render(t_gl *gl);
+void 						gl_render(t_map *map);
 
 
 #endif

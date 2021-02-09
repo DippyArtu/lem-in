@@ -23,7 +23,7 @@ void 						run_graphics(t_map *map)
 	gl_normalize_points(gl);
 
 	points_test(map);
-	exit(0);
+	//exit(0);
 
 	init_gl(map);
 	makeShaderProgram(gl);
@@ -32,24 +32,25 @@ void 						run_graphics(t_map *map)
 
 	gl_set_attrib_ptr(gl, "pos", 2, GL_FALSE, 0, 0);
 
-	gl_render(gl);
+	gl_render(map);
 
 	terminate_gl(gl);
 }
 
-void 						gl_render(t_gl *gl)
+//TODO num rooms to draw
+void 						gl_render(t_map *map)
 {
-	while (!glfwWindowShouldClose(gl->window))
+	while (!glfwWindowShouldClose(map->gl->window))
 	{
-		processInput(gl->window);
+		processInput(map->gl->window);
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//Render frames
-		glDrawArrays(GL_POINTS, 0, gl->num_points);
+		glDrawArrays(GL_POINTS, 0, map->num_rooms);
 
-		glfwSwapBuffers(gl->window);
+		glfwSwapBuffers(map->gl->window);
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
