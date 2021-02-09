@@ -33,7 +33,12 @@ typedef struct 				s_gl
 	GLuint 					vbo;
 	GLuint 					vao;
 
-	GLfloat					*points;
+	float 					*points;
+	int						num_points;
+	int						x_max;
+	int						x_min;
+	int						y_max;
+	int						y_min;
 }							t_gl;
 
 #endif

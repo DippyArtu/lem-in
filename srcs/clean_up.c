@@ -65,6 +65,8 @@ void 						free_link_validator(struct s_link_valid *links)
 
 void 						clean_gl_struct(t_gl *gl)
 {
+	if (gl->points != NULL)
+		free(gl->points);
 	free(gl);
 }
 

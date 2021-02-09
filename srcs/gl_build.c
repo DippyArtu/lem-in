@@ -87,7 +87,6 @@ void 						createProgram(t_gl *gl)
 	glUseProgram(gl->shaderProgram);
 }
 
-//TODO make it work with relative paths
 void 						makeShaderProgram(t_gl *gl)
 {
 	char 					*vertex_source;
@@ -101,11 +100,11 @@ void 						makeShaderProgram(t_gl *gl)
 	fragment_s = NULL;
 	//geometry_s = NULL;
 
-	vertex_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/vertex.shader");
+	vertex_source = readShaderSource("./shaders/vertex.shader");
 	vertex_s = &vertex_source;
-	fragment_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/fragment.shader");
+	fragment_source = readShaderSource("./shaders/fragment.shader");
 	fragment_s = &fragment_source;
-//	geometry_source = readShaderSource("/Users/abrar/Desktop/lem-in/shaders/geometry.shader");
+//	geometry_source = readShaderSource("./shaders/geometry.shader");
 //	geometry_s = &geometry_source;
 
 	gl->vertexShader = createShader(GL_VERTEX_SHADER, vertex_s);

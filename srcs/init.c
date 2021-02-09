@@ -63,6 +63,12 @@ t_gl						*init_gl_struct(void)
 	gl->geometryShader = 0;
 	gl->vbo = 0;
 	gl->vao = 0;
+	gl->points = NULL;
+	gl->num_points = 0;
+	gl->x_max = 0;
+	gl->x_min = 0;
+	gl->y_max = 0;
+	gl->y_min = 0;
 	return gl;
 }
 

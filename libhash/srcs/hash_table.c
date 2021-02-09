@@ -54,9 +54,9 @@ t_hash_table 				*ht_new(void)
 	return ht_new_sized(HT_INITIAL_BASE_SIZE);
 }
 
-
 struct s_room_node 			*free_room(t_room_node *room);
 void 						free_links(t_room_node *room);
+
 // Deletes hash item
 static void 				ht_del_item(t_hash_item *item, int flag)
 {

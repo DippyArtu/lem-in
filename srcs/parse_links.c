@@ -136,6 +136,6 @@ void 						get_links(char *line, int fd, t_map *map)
 		error(FILE_READ_ERR, map);
 	free_link_validator(map->links_val);
 	map->links_val = NULL;
-
-	ht_del_table(room_points_ht, RESIZE);
+	if (room_points_ht != NULL)
+		ht_del_table(room_points_ht, RESIZE);
 }

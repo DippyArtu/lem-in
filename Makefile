@@ -22,9 +22,9 @@ SRC = 	main.c \
 		links_utils.c \
 		gl_utils.c \
 		gl_build.c \
-		graphics.c \
 		gl_buffers.c \
-		gl_points.c
+		gl_points.c \
+		gl_draw.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

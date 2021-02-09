@@ -18,7 +18,8 @@
 
 #include <lem-in.h>
 
-void 						test(t_map *map);
+//static void 						test(t_map *map);
+void							points_test(t_map *map);
 
 //TODO:
 // - finish map stuff // - map validation ? mb do it on solving
@@ -44,22 +45,41 @@ int							main(int argc, char **argv)
 	else if (argc == 3)
 		map = init_map(GRAPHICS_OFF);
 
-	//get map
 	get_map(fd, map);
 	close(fd);
 
-	test(map);
+	//test(map);
+	points_test(map);
 	printf("rooms: %i\n", map->num_rooms);
 
-	//run_visuals(map);
+	run_graphics(map);
 
 	clean_up(map);
 
 	return 0;
 }
 
+void						points_test(t_map *map)
+{
+	int 						i = 0;
 
-void 						test(t_map *map)
+	if (map->gl != NULL)
+	{
+		while (i < map->gl->num_points)
+		{
+			printf("%f	", map->gl->points[i]);
+			i++;
+			printf("%f\n", map->gl->points[i]);
+			i++;
+		}
+		printf("x max:	%i		x min:	%i\n", map->gl->x_max, map->gl->x_min);
+		printf("y max:	%i		y min:	%i\n", map->gl->y_max, map->gl->y_min);
+		printf("\n");
+	}
+}
+
+/*
+static void 						test(t_map *map)
 {
 	//---------------------------------------------------test stuff 2
 	struct s_links			*link;
@@ -152,17 +172,6 @@ void 						test(t_map *map)
 	printf("num ants: %i\n\n", map->num_ants);
 	printf("\nStart room name: %s\n", map->start->room_name);
 	printf("End room name: %s\n", map->end->room_name);
-
-	int 				size = map->num_rooms * 2;
-	int					i = 0;
-
-	//----------------------------------------------------points test
-	while (i < size)
-	{
-		printf("%f	", map->gl->points[i]);
-		i++;
-		printf("%f\n", map->gl->points[i]);
-		i++;
-	}
 	//---------------------------------------------------test stuff 2
 }
+*/
