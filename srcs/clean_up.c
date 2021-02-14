@@ -78,7 +78,6 @@ void 						clean_up(t_map *map)
 			ht_del_table(map->rooms_hash, FULL);
 		if (map->coordinates)
 		{
-			printf("hi\n");
 			ht_del_table(map->coordinates, RESIZE);
 			free_room(map->dummy);
 		}

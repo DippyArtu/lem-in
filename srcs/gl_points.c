@@ -10,8 +10,6 @@
 
 #include "lem-in.h"
 
-//TODO normalize points between -1; 1 to float, make sure no division by zero occurs
-//TODO now it normalizes to 0; 1
 void 						gl_init_points(t_map *map)
 {
 	map->gl->num_points = map->num_rooms * 2;
@@ -20,7 +18,8 @@ void 						gl_init_points(t_map *map)
 	bzero(map->gl->points, map->gl->num_points);
 }
 
-void						gl_normalize_points(t_gl *gl)
+//TODO make sure no division by zero occurs
+void						gl_scale_points(t_gl *gl) //----------------------------------------------------------------Target range: -0.75; 0.75
 {
 	int 					i;
 	float					delta_x;
@@ -31,9 +30,9 @@ void						gl_normalize_points(t_gl *gl)
 	delta_y = (float)(gl->y_max - gl->y_min);
 	while (i < gl->num_points)
 	{
-		gl->points[i] = (gl->points[i] - (float)gl->x_min) / delta_x;
+		gl->points[i] = ((gl->points[i] - (float)gl->x_min) / delta_x) * 1.5f - 0.75f;
 		i++;
-		gl->points[i] = (gl->points[i] - (float)gl->y_min) / delta_y;
+		gl->points[i] = ((gl->points[i] - (float)gl->y_min) / delta_y) * 1.5f - 0.75f;
 		i++;
 	}
 }
@@ -61,11 +60,11 @@ void 						gl_insert_points(t_map *map, t_room_node *room, t_hash_table *table)
 	}
 }
 
-void						gl_set_attrib_ptr(t_gl *gl, char *attrib_name, GLint num_vals, GLboolean normalize, int stride, int offset)
+void						gl_set_attrib_ptr(t_gl *gl, char *attrib_name, GLint num_vals, int stride, int offset)
 {
 	GLuint 					attrib;
 
 	attrib = glGetAttribLocation(gl->shaderProgram, attrib_name);
-	glVertexAttribPointer(attrib, num_vals, GL_FLOAT, normalize, stride * sizeof(float), (void *)(offset * sizeof(float)));
+	glVertexAttribPointer(attrib, num_vals, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void *)(offset * sizeof(float)));
 	glEnableVertexAttribArray(attrib);
 }

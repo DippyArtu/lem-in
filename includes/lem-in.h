@@ -81,9 +81,9 @@ void						createVAO(t_gl *gl);
 
 //---------------------------------------------------------------------------------------------------------------------- gl_points.c
 void 						gl_init_points(t_map *map);
-void						gl_normalize_points(t_gl *gl);
+void						gl_scale_points(t_gl *gl);
 void 						gl_insert_points(t_map *map, t_room_node *room, t_hash_table *table);
-void						gl_set_attrib_ptr(t_gl *gl, char *attrib_name, GLint num_vals, GLboolean normalize, int stride, int offset);
+void						gl_set_attrib_ptr(t_gl *gl, char *attrib_name, GLint num_vals, int stride, int offset);
 
 //---------------------------------------------------------------------------------------------------------------------- gl_draw.c
 void 						run_graphics(t_map *map);

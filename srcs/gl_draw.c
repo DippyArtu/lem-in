@@ -16,28 +16,24 @@ void						points_test(t_map *map);
 void 						run_graphics(t_map *map)
 {
 	t_gl 					*gl;
-	GLsizeiptr 				pts_size;
 
 	gl = map->gl;
-	pts_size = sizeof(gl->points);
-	gl_normalize_points(gl);
+	gl_scale_points(gl);
 
 	points_test(map);
-	//exit(0);
 
 	init_gl(map);
-	makeShaderProgram(gl);
-	createVBO(gl, pts_size, (GLfloat *)gl->points);
 	createVAO(gl);
+	createVBO(gl, gl->num_points * sizeof(float), (GLfloat *)gl->points);
+	makeShaderProgram(gl);
 
-	gl_set_attrib_ptr(gl, "pos", 2, GL_FALSE, 0, 0);
+	gl_set_attrib_ptr(gl, "pos", 2,0, 0);
 
 	gl_render(map);
 
 	terminate_gl(gl);
 }
 
-//TODO num rooms to draw
 void 						gl_render(t_map *map)
 {
 	while (!glfwWindowShouldClose(map->gl->window))

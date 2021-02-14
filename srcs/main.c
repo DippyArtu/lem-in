@@ -67,9 +67,9 @@ void						points_test(t_map *map)
 	{
 		while (i < map->gl->num_points)
 		{
-			printf("%f	", map->gl->points[i]);
+			printf("%.3f	", map->gl->points[i]);
 			i++;
-			printf("%f\n", map->gl->points[i]);
+			printf("%.3f\n", map->gl->points[i]);
 			i++;
 		}
 		printf("x max:	%i		x min:	%i\n", map->gl->x_max, map->gl->x_min);
