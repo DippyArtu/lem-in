@@ -50,6 +50,31 @@ struct s_link_valid			*init_l_validator(void)
 	return validator;
 }
 
+t_matrix 					*init_gl_matrices(void)
+{
+	t_matrix 				*matrix;
+
+	if (!(matrix = (t_matrix *)malloc(sizeof(t_matrix))))
+		error(MALLOC_FAIL_ERR, NULL);
+
+	glm_mat4_identity(matrix->model_mat);
+	glm_mat4_identity(matrix->projection_mat);
+	glm_mat4_identity(matrix->view_mat);
+
+	matrix->eye[0] = 1.5f;
+	matrix->eye[1] = 1.5f;
+	matrix->eye[2] = 0.0f;
+
+	matrix->center[0] = 0.0f;
+	matrix->center[1] = 0.0f;
+	matrix->center[2] = 0.0f;
+
+	matrix->up[0] = 0.0f;
+	matrix->up[1] = 0.0f;
+	matrix->up[2] = 1.0f;
+	return matrix;
+}
+
 t_gl						*init_gl_struct(void)
 {
 	t_gl					*gl;
@@ -69,6 +94,7 @@ t_gl						*init_gl_struct(void)
 	gl->x_min = 0;
 	gl->y_max = 0;
 	gl->y_min = 0;
+	gl->matrix = init_gl_matrices();
 	return gl;
 }
 

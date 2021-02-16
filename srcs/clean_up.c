@@ -67,6 +67,8 @@ void 						clean_gl_struct(t_gl *gl)
 {
 	if (gl->points != NULL)
 		free(gl->points);
+	if (gl->matrix != NULL)
+		free(gl->matrix);
 	free(gl);
 }
 

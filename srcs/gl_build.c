@@ -100,11 +100,11 @@ void 						makeShaderProgram(t_gl *gl)
 	fragment_s = NULL;
 	geometry_s = NULL;
 
-	vertex_source = readShaderSource("./shaders/vertex.shader");
+	vertex_source = readShaderSource(VERTEX_SRC);
 	vertex_s = &vertex_source;
-	fragment_source = readShaderSource("./shaders/fragment.shader");
+	fragment_source = readShaderSource(GEOMETRY_SRC);
 	fragment_s = &fragment_source;
-	geometry_source = readShaderSource("./shaders/geometry_cubes.shader");
+	geometry_source = readShaderSource(FRAGMENT_SRC);
 	geometry_s = &geometry_source;
 
 	gl->vertexShader = createShader(GL_VERTEX_SHADER, vertex_s);
