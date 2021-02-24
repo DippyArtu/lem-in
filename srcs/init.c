@@ -94,6 +94,7 @@ t_gl						*init_gl_struct(void)
 	gl->x_min = 0;
 	gl->y_max = 0;
 	gl->y_min = 0;
+	gl->min_room_dist = 0.75f;
 	gl->matrix = init_gl_matrices();
 	return gl;
 }

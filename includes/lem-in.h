@@ -89,6 +89,7 @@ void						gl_set_attrib_ptr(t_gl *gl, char *attrib_name, GLint num_vals, int str
 //---------------------------------------------------------------------------------------------------------------------- gl_calculations.c
 void						gl_calc_room_size(t_map *map);
 void 						gl_calc_transforms(t_map *map);
+void 						gl_calc_room_dist(t_gl *gl, float x, float y, float prev_x, float prev_y);
 
 //---------------------------------------------------------------------------------------------------------------------- gl_draw.c
 void 						run_graphics(t_map *map);

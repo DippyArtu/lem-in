@@ -56,6 +56,7 @@ typedef struct 				s_gl
 	int						x_min;
 	int						y_max;
 	int						y_min;
+	float					min_room_dist;
 
 	t_matrix 				*matrix;
 }							t_gl;

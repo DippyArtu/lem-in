@@ -12,8 +12,7 @@
 
 void						points_test(t_map *map);
 
-//TODO normalize points
-//TODO figure out how to scale room-cube size depending on number of rooms and distance between them
+//TODO now draw corridors between the points
 void 						run_graphics(t_map *map)
 {
 	t_gl 					*gl;

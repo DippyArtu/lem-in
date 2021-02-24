@@ -10,15 +10,24 @@
 
 #include "lem-in.h"
 
+void 						gl_calc_room_dist(t_gl *gl, float x, float y, float prev_x, float prev_y)
+{
+	float 					distance;
+
+	distance = sqrtf(powf(prev_x - x, 2) + powf(prev_y - y, 2));
+	if (distance < gl->min_room_dist)
+		gl->min_room_dist = distance;
+}
+
+/*
+ * Needed to make sure no rooms overlap
+ */
 void						gl_calc_room_size(t_map *map)
 {
 	GLuint 					uni_length;
 	float 					length;
 
-	if (map)
-		printf("gl\n");
-
-	length = 0.05f;
+	length = map->gl->min_room_dist / 10;
 	uni_length = glGetUniformLocation(map->gl->shaderProgram, "len");
 	glUniform1f(uni_length, length);
 }

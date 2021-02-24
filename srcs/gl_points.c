@@ -18,22 +18,50 @@ void 						gl_init_points(t_map *map)
 	bzero(map->gl->points, map->gl->num_points);
 }
 
-//TODO make sure no division by zero occurs
+/*
+ * Scale function:
+ *
+ *        M - R_min
+ * M =  --------------- * (T_max - T_min) + T_min
+ *       R_max - R_min
+ *
+ * R_min — minimum of the range of input
+ * R_max — maximum of the range of input
+ * T_min — minimum of the target range
+ * T_max — maximum of the target range
+ * M — input value
+ *
+ * If coordinates are on a straight line, delta would equal to 0
+ * to avoid the division by zero, in that case, delta is set to 1
+ */
 void						gl_scale_points(t_gl *gl) //----------------------------------------------------------------Target range: -0.75; 0.75
 {
 	int 					i;
 	float					delta_x;
 	float					delta_y;
+	float 					x;
+	float 					y;
+	float 					prev_x;
+	float 					prev_y;
 
 	i = 0;
-	delta_x = (float)(gl->x_max - gl->x_min);
-	delta_y = (float)(gl->y_max - gl->y_min);
+	prev_x = 0;
+	prev_y = 0;
+	if (!(delta_x = (float)(gl->x_max - gl->x_min)))
+		delta_x = 1.0f;
+	if (!(delta_y = (float)(gl->y_max - gl->y_min)))
+		delta_y = 1.0f;
 	while (i < gl->num_points)
 	{
 		gl->points[i] = ((gl->points[i] - (float)gl->x_min) / delta_x) * 1.5f - 0.75f;
+		x = gl->points[i];
 		i++;
 		gl->points[i] = ((gl->points[i] - (float)gl->y_min) / delta_y) * 1.5f - 0.75f;
+		y = gl->points[i];
 		i++;
+		gl_calc_room_dist(gl, x, y, prev_x, prev_y);
+		prev_x = x;
+		prev_y = y;
 	}
 }
 
