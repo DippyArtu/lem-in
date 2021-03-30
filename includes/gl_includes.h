@@ -12,8 +12,8 @@
 # define LEM_IN_GL_INCLUDES_H
 
 # define VERTEX_SRC "./shaders/vertex.shader"
-# define GEOMETRY_SRC "./shaders/fragment.shader"
-# define FRAGMENT_SRC "./shaders/geometry.shader"
+# define GEOMETRY_SRC "./shaders/geometry.shader"
+# define FRAGMENT_SRC "./shaders/fragment.shader"
 
 # define GLEW_STATIC
 # include <GL/glew.h>

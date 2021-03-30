@@ -81,7 +81,7 @@ void 						createProgram(t_gl *gl)
 	if (gl->vertexShader)
 		glDeleteShader(gl->vertexShader);
 	if (gl->fragmentShader)
-		glDeleteShader(gl->geometryShader);
+		glDeleteShader(gl->fragmentShader);
 	if (gl->geometryShader)
 		glDeleteShader(gl->geometryShader);
 	glUseProgram(gl->shaderProgram);
@@ -102,9 +102,9 @@ void 						makeShaderProgram(t_gl *gl)
 
 	vertex_source = readShaderSource(VERTEX_SRC);
 	vertex_s = &vertex_source;
-	fragment_source = readShaderSource(GEOMETRY_SRC);
+	fragment_source = readShaderSource(FRAGMENT_SRC);
 	fragment_s = &fragment_source;
-	geometry_source = readShaderSource(FRAGMENT_SRC);
+	geometry_source = readShaderSource(GEOMETRY_SRC);
 	geometry_s = &geometry_source;
 
 	gl->vertexShader = createShader(GL_VERTEX_SHADER, vertex_s);
